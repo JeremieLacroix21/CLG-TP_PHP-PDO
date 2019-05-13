@@ -1,3 +1,20 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+
+
+<?php
+try {
+    $Mydb = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24', 'equipe24', '2hv6ai74');
+    
+    echo 'connexion reussi';
+} catch (PDOException $e) {
+    print "Erreur !: " . $e->getMessage() . "<br/>";
+    die();
+}
+?>
+
 <form action="action_page.php" style="border:1px solid #ccc">
 
 <head>
@@ -11,6 +28,13 @@
 <table>
     <tr>
 		<td>
+		<?php
+                    if(isset($_SESSION["errPseudo"])){
+                        $errorPseudo = $_SESSION["errPseudo"];
+                        echo "<span>$errorPseudo</span>";
+                    }
+                ?>
+				</br>
 		<label for="pseudonyme"><b>Pseudonyme </b></label>
 		</td>
 		<td>
@@ -51,6 +75,13 @@
 	</tr>
 	<tr>
 		<td>
+		<?php
+                    if(isset($_SESSION["errEmail"])){
+                        $errorEmail = $_SESSION["errEmail"];
+                        echo "<span>$errorEmail</span>";
+                    }
+                ?>
+				</br>
 		<label for="psw-repeat"><b>Adresse courriel </b></label>
 		</td>
 		<td>
@@ -60,14 +91,22 @@
 </table>
 	
     <div class="clearfix">
-	<button type="submit" class="signupbtn" onclick="myFunction();">Sign Up</button>
+	<button type="submit" class="signupbtn" onclick="Verify_Valid();">Sign Up</button>
      <button type="button" class="cancelbtn">Cancel</button>
     </div>
   </div>
 </form>
 
 <script>
+function Verify_Valid()//verifie si le nom ou le email est deja utilisé
+{
+	
+}
 function create_user()
+{
+	
+	
+}
 
 
 

@@ -101,10 +101,8 @@ try {
 function Verify_Valid()//verifie si le nom ou le email est deja utilis�
 {
   $username = $_POST['username'];
-  $password = $_POST['password'];
-  $confirmation = $_POST['confirmation'];
-  $Nom = $_POST['Nom'];
-  $Prenom = $_POST['Prenom'];
+  $email = $_POST['Email'];
+  
 }
 function create_user()
 {

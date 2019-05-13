@@ -2,7 +2,7 @@
 
 
 <header>
-<link rel="stylesheet" href="stylesheet.css">
+<link rel="stylesheet" href="CSS.PhotoVue.css">
 <header/>
 <?php $Username="Jérémie Lacroix"; 
 		$connecter=true;

@@ -80,12 +80,12 @@ function verify_existence() {
     $password = $_POST['password'];
 	$sql = "SELECT * FROM Membres WHERE Pseudonyme=$username and MotDePasse=$password";
     $query = $Mydb->query($sql);
-    $numrows = mysql_num_rows($query);
+    $numrows = $query->rowcount();
 	
          if($numrows == 1)
          {
             $_SESSION['username'] = $username; //Store username to session for futher authorization 
-            header("Location:inscription.php"); //Redirect user to home page
+            header("Location: inscription.php"); //Redirect user to home page
          }
          else {
                 $_SESSION['errMsg'] = "Invalid username or password";

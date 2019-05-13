@@ -7,7 +7,7 @@ session_start();
 <?php
 try {
     $Mydb = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24', 'equipe24', '2hv6ai74');
-    
+
     echo 'connexion reussi';
 } catch (PDOException $e) {
     print "Erreur !: " . $e->getMessage() . "<br/>";
@@ -89,7 +89,7 @@ try {
 		</td>
 	</tr>
 </table>
-	
+
     <div class="clearfix">
 	<button type="submit" class="signupbtn" onclick="Verify_Valid();">Sign Up</button>
      <button type="button" class="cancelbtn">Cancel</button>
@@ -98,18 +98,20 @@ try {
 </form>
 
 <script>
-function Verify_Valid()//verifie si le nom ou le email est deja utilisé
+function Verify_Valid()//verifie si le nom ou le email est deja utilisï¿½
 {
-	
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $confirmation = $_POST['confirmation'];
+  $Nom = $_POST['Nom'];
+  $Prenom = $_POST['Prenom'];
 }
 function create_user()
 {
-	
-	
+
+
 }
 
 
 
 </script>
-
-

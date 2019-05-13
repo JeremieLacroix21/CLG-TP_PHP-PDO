@@ -1,0 +1,103 @@
+delimiter |
+create procedure SelectNom(IN Ppseudo varchar(45))
+Begin
+select pseudonyme from Membres where pseudonyme = Ppseudo;
+end |
+DELIMETER ;
+
+delimiter %
+create procedure ModifierProfil(IN Ppseudo varchar(45), IN Pemail varchar(45), IN Pmdp varchar(45))
+Begin
+update Membres set MotDePasse = Pmdp, Email = Pemail where pseudonyme = Ppseudo;
+commit;
+end %
+DELIMETER ;
+
+delimiter |
+create function DeleteImage(IN Ppseudo varchar(45), IN Pidimages INT) returns varchar(45)
+Begin
+declare pseudoimage varchar(45);
+select I.pseudonyme into pseudoimage from Images I where Idimages = Pidimages; 
+if pseudoimage = Ppseudo then
+delete from Images where Idimages = Pidimages;
+commit; 
+else set pseudoimage = 'Erreur';
+end if;
+return pseudoimage;
+end |
+DELIMETER ;
+
+delimiter %
+create procedure DeleteCompte(IN Ppseudo varchar(45))
+Begin
+delete from Membres where Pseudonyme = Ppseudo;
+commit;
+end %
+DELIMETER ;
+
+delimiter |
+create function DeleteCommentaire(IN Ppseudo varchar(45), IN Pidcommentaires INT) returns varchar(45)
+Begin
+declare pseudocomment varchar(45);
+select C.pseudonyme into pseudocomment from Commentaires C where Idcommentaires = Pidcommentaires ; 
+if pseudocomment = Ppseudo then
+delete from Commentaires where Idcommentaires = Pidcommentaires;
+commit; 
+else set pseudocomment = 'Erreur';
+end if;
+return pseudocomment;
+end |
+DELIMETER ;
+
+delimiter %
+create function DeleteCommentaireImage(IN Ppseudo varchar(45), IN Pidcommentaires INT) returns varchar(45)
+Begin
+declare ImageOwner varchar(45);
+select I.pseudonyme into ImageOwner from Images I inner join Commentaires C
+on I.Idimages = C.Idimages where C.Idcommentaires = Pidcommentaires; 
+if ImageOwner = Ppseudo then
+delete from Commentaires where Idcommentaires = Pidcommentaires;
+commit; 
+else set ImageOwner = 'Erreur';
+end if;
+return ImageOwner;
+end %
+DELIMETER ;
+
+delimiter |
+create procedure ChangePassword(IN Ppseudo varchar(45), IN PNewpsswd varchar(45)) returns varchar(45)
+Begin
+update Membres set MotDePasse = PNewpsswd where pseudonyme = Ppseudo;
+commit;
+end |
+DELIMETER ;
+
+/* Triggers */
+/* Changer les CASCADE par NO ACTION */
+
+DELIMITER |;
+create trigger DeleteCascade before delete on Membres
+for each row
+begin
+delete from Commentaires C where C.pseudonyme = :old.Pseudonyme;
+commit;
+delete from Commentaires C inner join Images I on C.IdImages = I.idImages
+where :old.Pseudonyme = I.Pseudonyme;
+commit;
+delete from Images I where I.pseudonyme = :old.Pseudonyme;
+commit;
+end |;
+DELIMETER ;
+
+DELIMITER |;
+create trigger UpdateCascade before update on Membres
+for each row
+begin
+update C set C.Pseudonyme = :New.Pseudonyme from Commentaire as C
+inner join Membres as M on C.Pseudonyme = M.Pseudonyme where :old.Pseudonyme = C.Pseudonyme;
+commit;
+update I set I.Pseudonyme = :New.Pseudonyme from Images as I
+inner join Membres as M on I.Pseudonyme = M.Pseudonyme where :old.Pseudonyme = I.Pseudonyme;
+commit;
+end |;
+DELIMETER ;

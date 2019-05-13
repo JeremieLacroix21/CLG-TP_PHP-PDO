@@ -3,12 +3,13 @@ session_start();
 ?>
 
 <!DOCTYPE html>
+
+
+
 <form>
 
 <head>
   <link rel="stylesheet" type="text/css" href="CSS.login.css">
-  
-  
   
   
   <?php
@@ -55,11 +56,11 @@ try {
 	</tr>
 </table>
 <?php
-                    if(isset($_SESSION["errMsg"])){
-                        $error = $_SESSION["errMsg"];
+                    if(isset($_SESSION['errMsg'])){
+                        $error = $_SESSION['errMsg'];
                         echo "<span>$error</span>";
-						 $_SESSION["errMsg"] = '';
                     }
+					
                 ?>
 				</br>
 	<button type="submit"  onclick="verify_existence();">Se connecter</button>
@@ -77,20 +78,19 @@ function verify_existence() {
 <?php   
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $query = mysql_query("SELECT * FROM Members WHERE username=".mysql_real_escape_string($username)." and password = ".mysql_real_escape_string($password));
+	$sql = "SELECT * FROM Membres WHERE Pseudonyme=$username and MotDePasse=$password";
+    $query = $Mydb->query($sql);
     $numrows = mysql_num_rows($query);
-
+	
          if($numrows == 1)
          {
             $_SESSION['username'] = $username; //Store username to session for futher authorization 
-            header("Location: inscription.php"); //Redirect user to home page
+            header("Location:inscription.php"); //Redirect user to home page
          }
          else {
                 $_SESSION['errMsg'] = "Invalid username or password";
          }
-        header("Location: login(1).php"); //Redirect user back to your login form
-     
-		 $_SESSION['errMsg'] = '';
+        header("Location: login.php"); //Redirect user back to your login form
 	?>
 }
 

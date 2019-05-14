@@ -8,21 +8,11 @@ session_start();
 					
 					$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
 	
-					echo 'connexion reussi';
+					echo 'En ligne';
 			} catch (PDOException $e) {
 					print "Erreur !: " . $e->getMessage() . "<br/>";
 					die();
 			}
-
-			try{
-				$resultat = $Mybd->query("SELECT * FROM Membres WHERE Pseudonyme= 'Admin' and MotDePasse = 'Admin123!'");
-				
-				echo ($resultat->rowCount());
-				$resultat->closeCursor();
-				}
-				catch (PDOException $e)
-				{ echo('Erreur de connexion: ' . $e->getMessage()); exit(); } 
-
 	?>
 
 <?php 

@@ -2,6 +2,8 @@
 session_start();
 ?>
 <?php
+
+			$Erreur = "";
 			try {
 					
 					$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
@@ -26,8 +28,8 @@ session_start();
 <?php 
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		
-				$username = mysqli_real_escape_string($Mybd,$_POST['username']);
-				$password = mysqli_real_escape_string($Mydb,$_POST['password']);
+				$username = $_POST['username'];
+				$password = $_POST['password'];
 
 				$resultat = $Mybd->query("SELECT * FROM Membres WHERE Pseudonyme= '$username' and MotDePasse = '$password'");
 
@@ -41,8 +43,7 @@ session_start();
 								$Erreur=  "User connecter";
 						}
 						else {
-										$_SESSION['errMsg'] = "Invalid username or password";
-										$Erreur= "erreur";
+										$Erreur= "Invalid username or password";
 						}
 
 
@@ -53,7 +54,6 @@ session_start();
 
 <head>
   <link rel="stylesheet" type="text/css" href="CSS.login.css">
-<?php	echo ($Erreur); ?>
 </head>
 
 <body>
@@ -61,12 +61,13 @@ session_start();
 <div class="container">
 	<form action = "" method = "post">  
 		<label>Pseudonyme  :</label>
-			<input type="text" placeholder="Entrer votre pseudonyme" id ="username" required><br>
+			<input type="text" placeholder="Entrer votre pseudonyme" name ="username" required><br>
 		<label>Mot de Passe  :</label>
-			<input type="password" placeholder="Entrer votre mot de passe" id ="password" required>
+			<input type="password" placeholder="Entrer votre mot de passe" name ="password" required>
 		<br>
 			<button type="submit" value = " Submit ">Se connecter</button>
 			<button type="button" style="background-color:grey">S'inscrire</button>
 	</form>
+	<?php	echo ($Erreur); ?>
 </div>
 </body>

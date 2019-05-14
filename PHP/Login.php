@@ -35,7 +35,7 @@ session_start();
 						if($numrows >= 1)
 						{
 								$_SESSION['username'] = $username; //Store username to session for futher authorization 
-								header("Location: inscription.php"); //Redirect user to home page
+								header("location: inscription.php");
 								$Erreur=  "User connecter";
 						}
 						else {
@@ -58,32 +58,13 @@ session_start();
 	<h1>Photo </h1>
 <div class="container">
 	<form action = "" method = "post">  
-		<table>
-			<tr>
-				<td>
-					<label for="pseudonyme"><b>Pseudonyme </b></label>
-				</td>
-				<td>
-					<input type="text" placeholder="Entrer votre pseudonyme" name="username" required><br>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="psw"><b>Mot de Passe</b></label>
-				</td>
-				<td>
-					<input type="password" placeholder="Entrer votre mot de passe" name="password" required>
-				</td>
-			</tr>
-			<tr>
-			<td>
-			</td>	
-			<td>
-			</td>
-			</tr>
-		</table>
+		<label>Pseudonyme  :</label>
+			<input type="text" placeholder="Entrer votre pseudonyme" name="username" required><br>
+		<label>Mot de Passe  :</label>
+			<input type="password" placeholder="Entrer votre mot de passe" name="password" required>
+		<br>
 			<button type="submit" value = " Submit ">Se connecter</button>
 			<button type="button" style="background-color:grey">S'inscrire</button>
-		</div>
 	</form>
+</div>
 </body>

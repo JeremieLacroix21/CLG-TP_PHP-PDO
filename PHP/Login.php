@@ -13,7 +13,7 @@ session_start();
 			}
 
 			try{
-				$resultat = $Mybd->query("SELECT * FROM Membres");
+				$resultat = $Mybd->query("SELECT * FROM Membres WHERE Pseudonyme= 'Admin' and MotDePasse = 'Admin123!'");
 				
 				echo ($resultat->rowCount());
 				$resultat->closeCursor();
@@ -24,7 +24,7 @@ session_start();
 
 <?php 
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
-		header("Location: inscription .php");
+		
 				$username = $_POST['username'];
 				$password = $_POST['password'];
 
@@ -32,7 +32,7 @@ session_start();
 
 				$numrows = $resultat->rowCount();
 
-						if($numrows == 1)
+						if($numrows >= 1)
 						{
 								$_SESSION['username'] = $username; //Store username to session for futher authorization 
 								header("Location: inscription.php"); //Redirect user to home page
@@ -42,8 +42,9 @@ session_start();
 										$_SESSION['errMsg'] = "Invalid username or password";
 										$Erreur= "erreur";
 						}
-					header("Location: Login.php"); //Redirect user back to your login form
-			
+
+				header("Location: Login.php"); //Redirect user back to your login form
+
 	}
 ?>
 

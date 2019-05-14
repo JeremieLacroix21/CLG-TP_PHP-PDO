@@ -20,22 +20,24 @@ session_start();
 				}
 				catch (PDOException $e)
 				{ echo('Erreur de connexion: ' . $e->getMessage()); exit(); } 
+
 	?>
 
 <?php 
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		
-				$username = $_POST['username'];
-				$password = $_POST['password'];
+				$username = mysqli_real_escape_string($Mybd,$_POST['username']);
+				$password = mysqli_real_escape_string($Mydb,$_POST['password']);
 
 				$resultat = $Mybd->query("SELECT * FROM Membres WHERE Pseudonyme= '$username' and MotDePasse = '$password'");
 
 				$numrows = $resultat->rowCount();
 
-						if($numrows >= 1)
+						if($numrows == 1)
 						{
 								$_SESSION['username'] = $username; //Store username to session for futher authorization 
-								header("location: inscription.php");
+								header("location:inscription.php");
+								exit;
 								$Erreur=  "User connecter";
 						}
 						else {
@@ -43,7 +45,6 @@ session_start();
 										$Erreur= "erreur";
 						}
 
-				header("Location: Login.php"); //Redirect user back to your login form
 
 	}
 ?>
@@ -52,6 +53,7 @@ session_start();
 
 <head>
   <link rel="stylesheet" type="text/css" href="CSS.login.css">
+<?php	echo ($Erreur); ?>
 </head>
 
 <body>
@@ -59,9 +61,9 @@ session_start();
 <div class="container">
 	<form action = "" method = "post">  
 		<label>Pseudonyme  :</label>
-			<input type="text" placeholder="Entrer votre pseudonyme" name="username" required><br>
+			<input type="text" placeholder="Entrer votre pseudonyme" id ="username" required><br>
 		<label>Mot de Passe  :</label>
-			<input type="password" placeholder="Entrer votre mot de passe" name="password" required>
+			<input type="password" placeholder="Entrer votre mot de passe" id ="password" required>
 		<br>
 			<button type="submit" value = " Submit ">Se connecter</button>
 			<button type="button" style="background-color:grey">S'inscrire</button>

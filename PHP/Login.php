@@ -78,7 +78,6 @@ session_start();
 			<td>
 			</td>	
 			<td>
-				<span class="psw">Forgot <a href="#">password?</a></span>
 			</td>
 			</tr>
 		</table>

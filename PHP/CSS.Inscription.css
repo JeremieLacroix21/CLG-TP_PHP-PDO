@@ -74,6 +74,10 @@ button:hover {
 .signupbtn{
 	background-color:blue;
 }
+.okbtn{
+	background-color:blue;
+	position: relative;
+}
 
 /* Add padding to container elements */
 .container {
@@ -102,37 +106,41 @@ button:hover {
 
 /* Popup container */
 .popup {
-  position: relative;
-  display: inline-block;
+  position: fixed;
+	width: 450px;
+	height: 75px;
+	bottom: 200px;
+	left: 800px;
   cursor: pointer;
 }
 
+@media screen and (max-width: 1000px) {
+	.popup {
+		position:relative;
+		left: 225px;
+  }
+}
+@media screen and (max-width: 1000px) {
+	.popuptext {
+		position:relative;
+		left: 225px;
+  }
+}
 /* The actual popup (appears on top) */
 .popup .popuptext {
+	position: fixed;
+	width: 450px;
+	height: 75px;
+	bottom: 200px;
+	left: 800px;
   visibility: hidden;
-  width: 160px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
+	position: fixed;
+  background-color: lightgray;
+  color: black;
   border-radius: 6px;
-  padding: 8px 0;
-  position: absolute;
+  padding: 8px;
   z-index: 1;
-  bottom: 125%;
-  left: 50%;
   margin-left: -80px;
-}
-
-/* Popup arrow */
-.popup .popuptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
 }
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */

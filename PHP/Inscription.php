@@ -166,7 +166,24 @@ try {
 ]);
         if($allo == 1)
         {
-          echo '<script>  myFunction(); </script>';
+          echo ('<div class="popup" onclick="myFunction();">
+          <span class="popuptext" id="myPopup">Inscription réussi!
+          <button type="button" class="okbtn" onclick="ChangePage();">Ok</button>
+          </span>
+          </div>');
+          ?>
+          <script>
+         // When the user clicks on <div>, open the popup
+         function myFunction() {
+           var popup = document.getElementById("myPopup");
+           popup.classList.toggle("show");
+         }
+         function ChangePage() {
+           window.location.href = "Login.php";
+         }
+         </script>
+          <script> myFunction() </script>
+          <?php
         }
 		}
 		catch (PDOException $e)
@@ -179,12 +196,4 @@ try {
 	  }
   }
  ?>
-
- <script>
-// When the user clicks on <div>, open the popup
-function myFunction() {
-  var popup = document.getElementById("myPopup");
-  popup.classList.toggle("show");
-}
-</script>
 </form>

@@ -166,7 +166,7 @@ try {
 ]);
         if($allo == 1)
         {
-            echo('total insertion est ' . $allo);
+          echo '<script>  myFunction(); </script>';
         }
 		}
 		catch (PDOException $e)
@@ -179,4 +179,12 @@ try {
 	  }
   }
  ?>
+
+ <script>
+// When the user clicks on <div>, open the popup
+function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+</script>
 </form>

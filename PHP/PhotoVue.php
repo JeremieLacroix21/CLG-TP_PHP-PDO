@@ -35,7 +35,6 @@
 
 		</p>
 		</div>
-		<br>
 		<input type ="text" style='width:90%;'><input type="Submit" value="Commenter">
 		<br>
 	</div>

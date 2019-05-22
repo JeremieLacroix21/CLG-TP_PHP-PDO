@@ -5,7 +5,7 @@ session_start();
 
 
 <?php
-    $Mydb = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24', 'equipe24', '2hv6ai74');
+    $Mydb = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24', 'equipe24', '2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
 ?>
 
 <head>
@@ -142,7 +142,8 @@ session_start();
 			$nom = $_POST['Nom'];
 			$prenom = $_POST['Prenom'];
 			$email = $_POST['Email'];
-			$admin = 0;
+			$admin = 1;
+      echo $pseudonyme . " " . $motdepasse . " " . $nom . " " . $prenom . " " . $email . " " . $admin . " "  ;
 			$total= $stmt1->execute();
 			echo('total insertion est ' . $total);
 		}

@@ -27,7 +27,7 @@ session_start();
 		<?php
                     if(isset($_SESSION["errPseudo"])){
                         $errorPseudo = $_SESSION["errPseudo"];
-                        echo "<span style = 'color:red'>$errorPseudo</span>";
+                        echo "<span id='errPseudo' style = 'color:red'>$errorPseudo</span>";
                     }
         ?>
 		</td>
@@ -42,7 +42,7 @@ session_start();
             if(isset($_SESSION["errPwd"]))
 			{
                 $errPwd = $_SESSION["errPwd"];
-               echo "<span style = 'color:red'>$errPwd</span>";
+               echo "<span id='errPwd' style = 'color:red'>$errPwd</span>";
              }
         ?>
 		</td>
@@ -73,17 +73,17 @@ session_start();
 	</tr>
 	<tr>
 		<td>
-		<?php
-            if(isset($_SESSION["errEmail"]))
-			{
-                $errorEmail = $_SESSION["errEmail"];
-                echo "<span>$errorEmail</span>";
-             }
-        ?>
 		<label for="psw-repeat"><b>Adresse courriel </b></label>
 		</td>
 		<td>
 		<input type="Text" placeholder="Entrer votre Email" name="Email" required><br>
+    <?php
+            if(isset($_SESSION["errEmail"]))
+			{
+                $errorEmail = $_SESSION["errEmail"];
+                echo "<span id='errEmail' style = 'color:red'>$errorEmail</span>";
+             }
+        ?>
 		</td>
 	</tr>
 </table>
@@ -125,9 +125,17 @@ session_start();
 		 $stm->bindParam(1, $email);
 		 $stm->execute();
 		 $donnees = $stm->fetch();
-		  if($donnees[0] == 'Y')
+     $find1 = strpos($email, '@');
+     $find2 = strpos($email, '.');
+		  if($donnees[0] == 'Y' ||$find1 == false || $find2 == false)
 		  {
-			$_SESSION['errEmail'] = "Adresse courriel deja utilise";
+        if ($donnees[0] == 'Y' )
+        {
+        	$_SESSION['errEmail'] = "Adresse courriel deja utilise";
+        }
+        else {
+          $_SESSION['errEmail'] = "Adresse courriel incorrect";
+        }
 		  }
 		  else
 		  {

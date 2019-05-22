@@ -2,7 +2,7 @@
 
 
 <header>
-<link rel="stylesheet" href="stylesheet.css">
+<link rel="stylesheet" href="CSS.Photo.css">
 <header/>
 <?php $Username="Jérémie Lacroix"; 
 		$connecter=true;
@@ -10,7 +10,7 @@
 		
 ?>
 
-<body>
+<body style="background-color:black;">
 
 <navigation>
 <div class="topnav">
@@ -43,7 +43,7 @@ Ajouter un post
 
 
 <div class="photolist">
-<p>
+
 <?php 
 if($connecter==false){
 	echo "you are offline please";
@@ -51,26 +51,14 @@ if($connecter==false){
 	echo  "to see pictures";
 }
 else {
-	echo "
-	<div class='photo'>
-		<table>
-			<tr>
-				<td><a href='#User' style='padding:10px;'>$Username</a></tb>	
-				</tr>
-				<tr>
-				<td><img src='allo.jpg' style='width:665px; padding:10px;padding-left:10px;'></tb>	
-				</tr>
-				<tr>
-				<td><button type='button'><a href='#picture'>Comment</a></button></tb>	
-			</tr>
-		</table>
-	</div>";
+	echo "	
+			<img src='images/allo.jpg' style='width:665px; padding:10px;padding-left:10px;'></tb>";
 	
 }
 ?>
 
 
-</p>
+
 </div>
 </newsfeed>
 

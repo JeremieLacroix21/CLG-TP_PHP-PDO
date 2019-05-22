@@ -1,6 +1,6 @@
 /* Add a black background color to the top navigation */
-body{
-	background-color:lightgray;
+.body{
+	background-color:black;
 }
 
 .topnav {
@@ -32,14 +32,14 @@ body{
 
 
 /*Class for the picture div*/
-div.photolist{
+.photolist{
 	background-color:white;
 	position:relative;
 	top:20px;
 	bottom:20px;
 	margin-left:15%;
 	width: 45%;
-	border: 3px solid green;
+	border: 3px solid white;
 	padding-left:10px;
 	padding-right:10px;
 

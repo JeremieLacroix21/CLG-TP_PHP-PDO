@@ -11,7 +11,7 @@ h1{
 table{
 	text-align:right;
 	position:relative;
-	left: 550px;
+	left: 700px;
 	cellspacing: 5px;
 }
 
@@ -73,8 +73,14 @@ button:hover {
 }
 
 /* Change styles for cancel button and signup button on extra small screens */
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 1000px) {
   .cancelbtn, .signupbtn {
     width: 150px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  table {
+		position:relative;
+		left: 225px;
   }
 }

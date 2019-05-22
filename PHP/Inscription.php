@@ -5,7 +5,14 @@ session_start();
 
 
 <?php
-    $Mydb = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24', 'equipe24', '2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+$Erreur = "";
+try {
+
+    $Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+} catch (PDOException $e) {
+    print "Erreur !: " . $e->getMessage() . "<br/>";
+    die();
+}
 ?>
 
 <head>
@@ -107,7 +114,7 @@ session_start();
 	  else
 	  {
     unset($_SESSION['errPwd']);
-		$stm = $Mydb->prepare("CALL VerifierUser(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+		$stm = $Mybd->prepare("CALL VerifierUser(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
 	  $username = $_POST['pseudonyme'];
 	  $stm->bindParam(1, $username);
 	  $stm->execute();
@@ -120,7 +127,7 @@ session_start();
 	  {
     unset($_SESSION['errPseudo']);
 		 $stm->closeCursor();
-		 $stm = $Mydb->prepare("CALL VerifierEmail(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+		 $stm = $Mybd->prepare("CALL VerifierEmail(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
 		 $email = $_POST['Email'];
 		 $stm->bindParam(1, $email);
 		 $stm->execute();
@@ -141,22 +148,26 @@ session_start();
 		  {
       unset($_SESSION['errEmail']);
 			Try {
-			$stmt1 = $Mydb->prepare("INSERT INTO Membres(Pseudonyme, MotDePasse,Nom,Prenom,Email,Admin) VALUES (?,?,?,?,?,?)");
+			$stmt1 = $Mybd->prepare("INSERT INTO Membres(Pseudonyme, MotDePasse,Nom,Prenom,Email,Admin) VALUES (?,?,?,?,?,?)");
 			$stmt1->bindParam(1, $pseudonyme);
 			$stmt1->bindParam(2, $motdepasse);
 			$stmt1->bindParam(3, $nom);
 			$stmt1->bindParam(4, $prenom);
 			$stmt1->bindParam(5, $email);
 			$stmt1->bindParam(6, $admin);
-			$pseudonyme = $_POST['pseudonyme'];
-			$motdepasse = $_POST['psw'];
-			$nom = $_POST['Nom'];
-			$prenom = $_POST['Prenom'];
-			$email = $_POST['Email'];
-			$admin = 1;
-      echo $pseudonyme . " " . $motdepasse . " " . $nom . " " . $prenom . " " . $email . " " . $admin . " "  ;
-			$total= $stmt1->execute();
-			echo('total insertion est ' . $total);
+      $stmt1 = $Mybd->prepare("INSERT INTO Membres(Pseudonyme, MotDePasse,Nom,Prenom,Email,Admin) VALUES (:fpseudo,:fmdp,:fnom,:fprenom,:femail,:fadmin)");
+      $allo = $stmt1->execute([
+    'fpseudo' => $_POST['pseudonyme'],
+    'fmdp' => $_POST['psw'],
+    'fnom' => $_POST['Nom'],
+    'fprenom' => $_POST['Prenom'],
+    'femail' => $_POST['Email'],
+    'fadmin' => 0,
+]);
+        if($allo == 1)
+        {
+            echo('total insertion est ' . $allo);
+        }
 		}
 		catch (PDOException $e)
 		{

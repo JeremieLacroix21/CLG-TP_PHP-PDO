@@ -106,6 +106,7 @@ session_start();
 	  }
 	  else
 	  {
+    unset($_SESSION['errPwd']);
 		$stm = $Mydb->prepare("CALL VerifierUser(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
 	  $username = $_POST['pseudonyme'];
 	  $stm->bindParam(1, $username);
@@ -117,6 +118,7 @@ session_start();
 	  }
 	  else
 	  {
+    unset($_SESSION['errPseudo']);
 		 $stm->closeCursor();
 		 $stm = $Mydb->prepare("CALL VerifierEmail(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
 		 $email = $_POST['Email'];
@@ -129,7 +131,8 @@ session_start();
 		  }
 		  else
 		  {
-			 Try {
+      unset($_SESSION['errEmail']);
+			Try {
 			$stmt1 = $Mydb->prepare("INSERT INTO Membres(Pseudonyme, MotDePasse,Nom,Prenom,Email,Admin) VALUES (?,?,?,?,?,?)");
 			$stmt1->bindParam(1, $pseudonyme);
 			$stmt1->bindParam(2, $motdepasse);

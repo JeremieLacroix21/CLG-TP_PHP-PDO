@@ -31,5 +31,26 @@ body{
 }
 
 
+div.photolist{
+  background-color: white;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 5%;
+  border:2px solid black;
+}
+.photo{
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+	
+}
+img{
+  width: 600px;
+}
 
-
+.commentaire{
+  border-top: 2px solid black;
+  overflow-y:scroll;
+  height: 100px;
+}

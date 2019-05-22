@@ -1,86 +1,47 @@
 <!DOCTYPE html>
 
 
+
 <header>
 <link rel="stylesheet" href="CSS.PhotoVue.css">
-<header/>
-<?php $Username="Jérémie Lacroix"; 
-		$connecter=true;
-		$login_link="#login";
+
+
+<navigation>
+	<div class="topnav">
+		<a class="active" href="#home">Home</a>
+		<a href="#about">About</a>
 		
-?>
+		
+		<a style='float:right;' href='#Profil'> Username </a>
+		<a style="float:right;" href="#logout"> logout </a>
+		
+	</div>
+</navigation>
+<header/>
+
+
 
 <body>
 
-<navigation>
-<div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#about">About</a>
-  
-  <a style="float:right;" href="#logout"><?php
-	if($connecter==true){
-		echo "logout";
-	}
-  ?> </a>
-  <?php
-	if($connecter==false)
-		echo "<a style='float:right;' href='#login'> Login </a>";
-	else
-		echo "<a style='float:right;' href='#Profil'> $Username </a>";
-  ?>
-</div>
-</navigation>
 
 
-<Post>
-<div class="photolist">
-<p>
-<?php 
-if($connecter==false){
-	echo "you are offline please";
-	echo	"<a href='#login'>login</a>";
-	echo  "to see pictures";
-}
-else {
-	echo "
-	<div class='photo'>
-		<table>
-			<tr>
-				<td><a href='#User' style='padding:10px;'>$Username</a></tb>	
+
+	<div class="photolist">
+		<div class='photo'>
+			<table>
+				<tr>
+					<td><a href='#User' style='padding:10px;'>$Username</a></tb>	
 				</tr>
 				<tr>
-				<td><img src='allo.jpg' style='width:665px; padding:10px;padding-left:10px;'></tb>	
+					<td><img src='images/allo.jpg'></tb>	
 				</tr>
-				<tr>
-				<td><button type='button'><a href='#picture'>Comment</a></button></tb>	
-			</tr>
-		</table>
-	</div>";
-	
-}
-?>
+			</table>
+		</div>
 
+		<input type ="text"><input type="Submit" value="Commenter">
 
-</p>
-</div>
-<div class="commentcontainer">
-	<div class="comment">	
-	User1 : allo
-	<div>
-	<div class="comment">	
-	Grand-Maman : alllo3
-	<div>
-	<div class="comment">	
-	Grand-Maman : belle photo
-	<div>
-	<div class="comment">	
-	Jé Lacroix : c'est beau
-	<div>
-	<div class="comment">	
-	charles bourgeois : lol!
-	<div>
-	
+		<br>
+	</div>
 
-<input type ="text"><input type="Submit" value="Commenter">
+</body>
 
-</Post>

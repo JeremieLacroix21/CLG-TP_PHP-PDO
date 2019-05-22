@@ -1,10 +1,10 @@
 /* Add a black background color to the top navigation */
 .body{
-	background-color:black;
+	background-color:white;
 }
 
 .topnav {
-  background-color: black;
+  background-color: white;
   overflow: hidden;
 }
 
@@ -30,43 +30,55 @@
   color: white;
 }
 
-
-/*Class for the picture div*/
-.photolist{
-	background-color:white;
-	position:relative;
-	top:20px;
-	bottom:20px;
-	margin-left:15%;
-	width: 45%;
-	border: 3px solid white;
-	padding-left:10px;
-	padding-right:10px;
-
-}
-.photo{
-	display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-	
+/* The grid: Four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
 }
 
-.commentcontainer{
-	width:200px;
-	height:485px;
-	background-color:white;
-	position:relative;
-	margin-left:61.75%;
-	margin-top:-30.95%;
-	width:20%;
-	border:2px solid black;
-	padding-left:10px;
+/* Style the images inside the grid */
+.column img {
+  opacity: 0.8; 
+  cursor: pointer; 
+  height:100px;
+	width:100px;
 }
-.comment{
-	
-	
-	
+
+.column img:hover {
+  opacity: 1;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The expanding image container (positioning is needed to position the close button and the text) */
+.container {
+  position: relative;
+  display: none;
+}
+
+/* Expanding image text */
+#imgtext {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  font-size: 20px;
+}
+
+/* Closable button inside the image */
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
 }
 
 

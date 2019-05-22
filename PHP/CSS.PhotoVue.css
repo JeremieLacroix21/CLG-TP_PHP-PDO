@@ -31,43 +31,5 @@ body{
 }
 
 
-/*Class for the picture div*/
-div.photolist{
-	background-color:white;
-	position:relative;
-	top:20px;
-	bottom:20px;
-	margin-left:15%;
-	width: 45%;
-	border: 3px solid green;
-	padding-left:10px;
-	padding-right:10px;
-
-}
-.photo{
-	display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-	
-}
-
-.commentcontainer{
-	width:200px;
-	height:485px;
-	background-color:white;
-	position:relative;
-	margin-left:61.75%;
-	margin-top:-30.95%;
-	width:20%;
-	border:2px solid black;
-	padding-left:10px;
-}
-.comment{
-	
-	
-	
-}
-
 
 

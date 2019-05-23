@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
-?>
-<?php
+
 			$Erreur = "";
 			try {
 
@@ -13,24 +12,42 @@ session_start();
 			}
 ?>
 
-
 <header>
 <link rel="stylesheet" href="CSS.Photo.css">
 <header/>
+
 <?php
-	if (isset($_SESSION['username']))
+if (isset($_SESSION['username']))
+{
+	$connecter=true;
+}
+if ($connecter)
+{
+	$stm = $Mybd->prepare("CALL VerifierAdmin(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+	$Username=$_SESSION['username'];
+	$stm->bindParam(1, $Username);
+	$stm->execute();
+	$donnees = $stm->fetch();
+	if($donnees[0] === 'Y')
 	{
-		$Username=$_SESSION['username'];
-		$connecter=true;
+		$admin = 1;
 	}
+	else {
+		$admin = 0;
+	}
+}
 ?>
 
-<body style="background-color:black;">
-
+<body>
 <navigation>
 <div class="topnav">
-  <a href="<Photo.php">Galerie Photo</a>
+  <a href="Photo.php">Galerie Photo</a>
   <a href="Ajout.php">Ajouter une photo</a>
+	<?php
+	if($admin == 1){
+		echo ("<a href='Admin.php'>Admin</a>");
+	}
+  ?>
   <a style="float:right;" href="#logout">
   <?php
 	if($connecter==true){
@@ -44,84 +61,85 @@ session_start();
 	}
 	else
 	{
-	  echo "<a style='float:right;' href='#Profil'> $Username </a>";
+	  echo "<a style='float:right;' href='Profil.php'> $Username </a>";
 	}
   ?>
 </div>
 </navigation>
 
-
-
-
-<newsfeed>
-<a href="#post">
-<div style="text-align:center;padding:10px;">
-Ajouter un post
-</div>
-</a>
-
-
-
-
 <?php
-
-if($connecter==false){
-	echo "you are offline please";
-	echo	"<a href='#login'>login</a>";
-	echo  "to see pictures";
-}
-else {
-
 	$resultat = $Mybd->query("SELECT id FROM Images");
-	echo "
-<div class='column'>
-  <div class='row'>
-    <img src='images/1.jpg' alt='Nature' onclick='Afficher_img(this);' style='width:100px;height:100px;'>
-  </div>
-  <div class='row'>
-    <img src='images/2.jpg' alt='Snow' onclick='Afficher_img(this);' style='width:100px;height:100px;'>
-  </div>
-  <div class='row'>
-    <img src='images/3.jpg' alt='Mountains' onclick='Afficher_img(this);' style='width:100px;height:100px;'>
-  </div>
-  <div class='row'>
-    <img src='images/4.jpg' alt='Lights' onclick='Afficher_img(this);' style='width:100px;height:100px;'>
-  </div>
-</div>
-
-
-<div class='container'>
-  <!-- Close the image -->
-  <span onclick='this.parentElement.style.display='none'' class='closebtn'>&times;</span>
-
-  <!-- Expanded image -->
-  <img id='expandedImg' style='width:100%'>
-
-  <!-- Image text -->
-  <div id='imgtext'></div>
-</div>";
-
-}
-?>
-
-
-
-
-</newsfeed>
-
+	?>
+<table>
+	<tr>
+		<td>
+		<img src='images/1.jpg' alt='Nature' >
+		</td>
+		<td>
+		<img src='images/2.jpg' alt='Snow'>
+		</td>
+		<td>
+		<img src='images/2.jpg' alt='Snow' >
+		</td>
+		<td>
+		<img src='images/2.jpg' alt='Snow'>
+		</td>
+		<td>
+		<img src='images/2.jpg' alt='Snow'>
+		</td>
+		<td>
+		<img src='images/1.jpg' alt='Nature' >
+		</td>
+		<td>
+		<img src='images/1.jpg' alt='Nature' >
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<img src='images/1.jpg' alt='Nature' >
+		</td>
+		<td>
+		<img src='images/2.jpg' alt='Snow'>
+		</td>
+		<td>
+		<img src='images/2.jpg' alt='Snow' >
+		</td>
+		<td>
+		<img src='images/2.jpg' alt='Snow'>
+		</td>
+		<td>
+		<img src='images/2.jpg' alt='Snow'>
+		</td>
+		<td>
+		<img src='images/1.jpg' alt='Nature' >
+		</td>
+		<td>
+		<img src='images/1.jpg' alt='Nature' >
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<img src='images/1.jpg' alt='Nature' >
+		</td>
+		<td>
+		<img src='images/2.jpg' alt='Snow'>
+		</td>
+		<td>
+		<img src='images/2.jpg' alt='Snow' >
+		</td>
+		<td>
+		<img src='images/2.jpg' alt='Snow'>
+		</td>
+		<td>
+		<img src='images/2.jpg' alt='Snow'>
+		</td>
+		<td>
+		<img src='images/1.jpg' alt='Nature' >
+		</td>
+		<td>
+		<img src='images/1.jpg' alt='Nature' >
+		</td>
+	</tr>
+</table>
 
 <body/>
-<script>
-function Afficher_img(imgs) {
-  // Get the expanded image
-  var expandImg = document.getElementById("expandedImg");
-  // Get the image text
-  var imgText = document.getElementById("imgtext");
-  // Use the same src in the expanded image as the image being clicked on from the grid
-  expandImg.src = imgs.src;
-  // Use the value of the alt attribute of the clickable image as text inside the expanded image
-  imgText.innerHTML = imgs.alt;
-  // Show the container element (hidden with CSS)
-  expandImg.parentElement.style.display = "block";
-}
-</script>

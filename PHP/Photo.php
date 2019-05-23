@@ -29,25 +29,23 @@ session_start();
 
 <navigation>
 <div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#about">About</a>
-
+  <a href="<Photo.php">Galerie Photo</a>
+  <a href="Ajout.php">Ajouter une photo</a>
   <a style="float:right;" href="#logout">
-<?php
+  <?php
 	if($connecter==true){
 		echo "logout";
 	}
   ?> </a>
   <?php
 	if($connecter==false)
-		echo "<a style='float:right;' href='#login'> Login </a>";
+	{
+		echo "<a style='float:right;' href='login.php'> Login </a>";
+	}
 	else
-		echo "<a style='float:right;' href='#Profil'> $Username </a>";
-
-		if(isset($_GET['myLinkVar1'])) {
-    // do something
-}
-
+	{
+	  echo "<a style='float:right;' href='#Profil'> $Username </a>";
+	}
   ?>
 </div>
 </navigation>

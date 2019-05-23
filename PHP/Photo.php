@@ -70,13 +70,23 @@ if ($connecter)
 <table>
 	<?php
 	  $id = 1;
-		$stm = $mybd->prepare("CALL GetImages()", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+		$stm = $Mybd->prepare("CALL GetImages()", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
 		$stm->execute();
 		while ($donnees = $stm->fetch())
 		{
-		echo '<a href = "PhotoVue.php?id="' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
-		. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] .  ;
+			$stml = $Mybd->prepare("CALL NombreCommentaire(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+			$commentaire = $donnees[0];
+			$stml->bindParam(1, $commentaire);
+			$stml->execute();
+			while ($comment = $stml->fetch())
+			{
+				$Nbcommentaires = $comment[0];
+			}
+		echo '<td><a href = "PhotoVue.php?id="' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
+		. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:2017 </br>
+		Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
 		$id++;
+		$stml->closeCursor();
 		}
 		$stm->closeCursor();
 	?>

@@ -4,43 +4,41 @@
 }
 
 .topnav {
-  background-color: blue;
-  overflow: hidden;
+  background-color: black;
+	overflow: hidden;
+}
+table{
+	width="500";
+	border="0";
+	cellpadding="5";
+}
+td{
+	padding : 30px;
+	align="center";
+	valign="center";
 }
 
-/* Style the links inside the navigation bar */
+img{
+	width:200px;
+	height:200px;
+	opacity: 1;
+  cursor: pointer;
+}
+img:hover {
+  opacity: 0.8;
+}
+
 .topnav a {
   float: left;
-	background-color: blue;
+	color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
 }
 
-/* Change the color of links on hover */
 .topnav a:hover {
   background-color: blue;
-  color: black;
-}
-
-/* The grid: Four equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 25%;
-  padding: 10px;
-}
-
-/* Style the images inside the grid */
-.column img {
-  opacity: 0.8;
-  cursor: pointer;
-  height:100px;
-	width:100px;
-}
-
-.column img:hover {
-  opacity: 1;
 }
 
 /* Clear floats after the columns */
@@ -50,11 +48,6 @@
   clear: both;
 }
 
-/* The expanding image container (positioning is needed to position the close button and the text) */
-.container {
-  position: relative;
-  display: none;
-}
 
 /* Expanding image text */
 #imgtext {

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <link rel="stylesheet" href="CSS.PhotoVue.css">
 
@@ -7,11 +10,13 @@
 	<div class="topnav">
 		<a class="active" href="#home">Home</a>
 		<a href="#about">About</a>
-		
-		
-		<a style='float:right;' href='#Profil'> Username </a>
+
+		<?php
+		$username = $_SESSION['username'];
+		echo ("<a style='float:right;' href='#Profil'> $username </a>");
+		?>
 		<a style="float:right;" href="#logout"> logout </a>
-		
+
 	</div>
 </navigation>
 <header/>
@@ -22,10 +27,10 @@
 		<div class='photo'>
 			<table style="width:100%;">
 				<tr>
-					<th><a href='#User'>Username</a></th>	
+					<th><a href='#User'>username</a></th>
 				</tr>
 				<tr>
-					<th><img src='images/1.jpg' ></th>	
+					<th><img src='images/1.jpg' ></th>
 				</tr>
 			</table>
 		</div>
@@ -40,4 +45,3 @@
 	</div>
 
 </body>
-

@@ -29,7 +29,7 @@ session_start();
 		}
 		else {
 			$_SESSION['username'] = $username; //Store username to session for futher authorization
-			header("location:PhotoVue.php");
+			header("location:Photo.php");
 			exit;
 		}
 	}

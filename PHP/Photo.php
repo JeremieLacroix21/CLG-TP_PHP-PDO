@@ -6,24 +6,24 @@ session_start();
 
 			$Erreur = "";
 			try {
-					
+
 					$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
-					
-					
+
+
 					echo 'En ligne';
 			} catch (PDOException $e) {
 					print "Erreur !: " . $e->getMessage() . "<br/>";
 					die();
 			}
 	?>
-	
+
 
 <header>
 <link rel="stylesheet" href="CSS.Photo.css">
 <header/>
-<?php 	$_SESSION['username'] = 'allo';
+<?php
 		$Username=$_SESSION['username']; 
-		$connecter=true;	
+		$connecter=true;
 ?>
 
 <body style="background-color:black;">
@@ -32,7 +32,7 @@ session_start();
 <div class="topnav">
   <a class="active" href="#home">Home</a>
   <a href="#about">About</a>
-  
+
   <a style="float:right;" href="#logout">
 <?php
 	if($connecter==true){
@@ -61,7 +61,7 @@ Ajouter un post
 
 
 
-<?php 
+<?php
 
 if($connecter==false){
 	echo "you are offline please";
@@ -69,7 +69,7 @@ if($connecter==false){
 	echo  "to see pictures";
 }
 else {
-	
+
 	$resultat = $Mybd->query("SELECT id FROM Images");
 	echo "
 <div class='column'>
@@ -98,7 +98,7 @@ else {
   <!-- Image text -->
   <div id='imgtext'></div>
 </div>";
-	
+
 }
 ?>
 
@@ -122,4 +122,4 @@ function Afficher_img(imgs) {
   // Show the container element (hidden with CSS)
   expandImg.parentElement.style.display = "block";
 }
-</script> 
+</script>

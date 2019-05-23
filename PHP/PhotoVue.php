@@ -6,10 +6,11 @@ $idPhoto = intval($_GET['id']);
 <link rel="stylesheet" href="CSS.PhotoVue.css">
 
 <html>
+
 <header>
 <navigation>
 	<div class="topnav">
-		<a class="active" href="#home">Home</a>
+	<a href="Photo.php">Galerie Photo</a>
 		<a href="#about">About</a>
 
 		<?php
@@ -23,9 +24,6 @@ $idPhoto = intval($_GET['id']);
 </header>
 
 <?php
-
-
-
 
 try
 {
@@ -42,7 +40,9 @@ try
 	
 }
 catch (PDOException $e)
-{ echo('Erreur de connexion: ' . $e->getMessage());exit();}
+{ 
+	echo('Erreur de connexion: ' . $e->getMessage());exit();
+}
 $Mybd=null;
 
 ?>
@@ -69,7 +69,12 @@ $Mybd=null;
 					$stm1->execute();
 					while ($donnees1 = $stm1->fetch())
 					{
-					echo $donnees1[0].': '.$donnees1[1].'</br>';
+					echo $donnees1[0].': '.$donnees1[1]
+					if($donnees1[0] == $username)
+					{
+						echo "<input type='Submit' value='delete'>"
+					}
+					echo '</br>';
 					}
 					$stm1->closeCursor();
 				}
@@ -82,14 +87,14 @@ $Mybd=null;
 		<form method="post">
 			<input type ="text" style='width:90%;' name="Commentaire"><input type="Submit" value="Commenter">
 		</form>
-
 		<br>
 	</div>
 </body>
 </html>
 
 <?php
-		if($_SERVER["REQUEST_METHOD"] == "POST") {
+	if($_SERVER["REQUEST_METHOD"] == "POST") {
+
 			if($_POST['Commentaire'] != ""){
 			$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
 			$stm = $Mybd->prepare("CALL InsertionCommentaire(?,?,?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
@@ -101,5 +106,5 @@ $Mybd=null;
 			$donnees = $stm->fetch();
 			header("Refresh:0");
 			}
-		}
-	?>
+	}
+?>

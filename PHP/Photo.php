@@ -70,6 +70,14 @@ if ($connecter)
 <table>
 	<tr>
 	<?php
+	$stml = $Mybd->prepare("CALL NombreCommentaire(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+	$commentaire = $donnees[0];
+	$stml->bindParam(1, $commentaire);
+	$stml->execute();
+	while ($comment = $stml->fetch())
+	{
+		$Nbcommentaires = $comment[0];
+	}
 	  $id = 1;
 		$nombrecolonne = 0;
 		$stm = $Mybd->prepare("CALL GetImages()", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));

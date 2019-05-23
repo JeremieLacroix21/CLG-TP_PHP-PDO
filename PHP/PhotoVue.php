@@ -1,5 +1,6 @@
 <?php
 session_start();
+$idPhoto = intval($_GET['id']);
 ?>
 <!DOCTYPE html>
 <link rel="stylesheet" href="CSS.PhotoVue.css">
@@ -19,11 +20,11 @@ session_start();
 
 	</div>
 </navigation>
-<header/>
+</header>
 
 <?php
 
-$idPhoto = intval($_GET['id']);
+
 
 
 try
@@ -54,7 +55,7 @@ $Mybd=null;
 					<th><a href='#User'> <?php echo($UsernameOwner); ?> </a></th>
 				</tr>
 				<tr>
-					<th><img src='images/1.jpg' ></th>
+					<th><img src='images/<?php echo $idPhoto ?>.jpg' ></th>
 				</tr>
 			</table>
 		</div>
@@ -64,7 +65,7 @@ $Mybd=null;
 				try
 				{
 					$Mybd1 = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
-					$stm1 = $Mybd1->prepare("SELECT Pseudonyme,Message from Commentaires where IdImages = 1" );
+					$stm1 = $Mybd1->prepare("SELECT Pseudonyme,Message from Commentaires where IdImages = $idPhoto" );
 					$stm1->execute();
 					while ($donnees1 = $stm1->fetch())
 					{
@@ -78,8 +79,27 @@ $Mybd=null;
 			?>
 		</p>
 		</div>
-		<input type ="text" style='width:90%;'><input type="Submit" value="Commenter">
+		<form method="post">
+			<input type ="text" style='width:90%;' name="Commentaire"><input type="Submit" value="Commenter">
+		</form>
+
 		<br>
 	</div>
 </body>
 </html>
+
+<?php
+		if($_SERVER["REQUEST_METHOD"] == "POST") {
+			if($_POST['Commentaire'] != ""){
+			$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+			$stm = $Mybd->prepare("CALL InsertionCommentaire(?,?,?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+			$Comment = $_POST['Commentaire'];
+			$stm->bindParam(1, $idPhoto);
+			$stm->bindParam(2, $username);
+			$stm->bindParam(3, $Comment);
+			$stm->execute();
+			$donnees = $stm->fetch();
+			header("Refresh:0");
+			}
+		}
+	?>

@@ -92,7 +92,7 @@ if ($connecter)
 				$nombrecolonne = 0;
 			}
 			else {
-				echo '<td><a href = "PhotoVue.php?id="' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
+				echo '<td><a href = "PhotoVue.php?id=' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
 				. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:2017 </br>
 				Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
 			}

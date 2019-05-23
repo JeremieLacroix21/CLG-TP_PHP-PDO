@@ -78,7 +78,6 @@ if ($connecter)
 	{
 		$Nbcommentaires = $comment[0];
 	}
-	  $id = 1;
 		$nombrecolonne = 0;
 		$stm = $Mybd->prepare("CALL GetImages()", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
 		$stm->execute();
@@ -94,17 +93,16 @@ if ($connecter)
 			}
 			if($nombrecolonne == 7) //fin de tr
 			{
-				echo '</tr><tr><td><a href = "PhotoVue.php?id="' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
+				echo '</tr><tr><td><a href = "PhotoVue.php?id="' . $donnees[0] . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
 				. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:2017 </br>
 				Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
 				$nombrecolonne = 0;
 			}
 			else {
-				echo '<td><a href = "PhotoVue.php?id=' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
+				echo '<td><a href = "PhotoVue.php?id=' . $donnees[0]. '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
 				. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:2017 </br>
 				Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
 			}
-			$id++;
 			$nombrecolonne++;
 		$stml->closeCursor();
 		}

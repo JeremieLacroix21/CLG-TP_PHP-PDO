@@ -68,6 +68,18 @@ if ($connecter)
 </navigation>
 
 <table>
+	<?php
+	  $id = 1;
+		$stm = $mybd->prepare("CALL GetImages()", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+		$stm->execute();
+		while ($donnees = $stm->fetch())
+		{
+		echo '<a href = "PhotoVue.php?id="' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
+		. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] .  ;
+		$id++;
+		}
+		$stm->closeCursor();
+	?>
 	<tr>
 		<td>
 			<a href="PhotoVue.php?id=1" >

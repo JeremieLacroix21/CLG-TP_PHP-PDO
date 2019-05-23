@@ -28,7 +28,6 @@ img:hover {
   opacity: 0.8;
 }
 
-/* Style the links inside the navigation bar */
 .topnav a {
   float: left;
 	color: white;
@@ -38,16 +37,8 @@ img:hover {
   font-size: 17px;
 }
 
-/* Change the color of links on hover */
 .topnav a:hover {
   background-color: blue;
-}
-
-/* The grid: Four equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 25%;
-  padding: 10px;
 }
 
 /* Clear floats after the columns */
@@ -57,11 +48,6 @@ img:hover {
   clear: both;
 }
 
-/* The expanding image container (positioning is needed to position the close button and the text) */
-.container {
-  position: relative;
-  display: none;
-}
 
 /* Expanding image text */
 #imgtext {

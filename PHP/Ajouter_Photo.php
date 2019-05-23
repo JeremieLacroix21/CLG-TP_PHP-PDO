@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['username'] = "allo";
+$_SESSION['username'] = "Admin";
 $allo = $_SESSION['username'];
 $connecter =true;
 ?>
@@ -18,12 +18,7 @@ $connecter =true;
 			}
 	?>
 
-<?php
-	if($_SERVER["REQUEST_METHOD"] == "POST") {
-		
-		
-	}
-?>
+
 
 
 <!DOCTYPE html>
@@ -57,51 +52,36 @@ $connecter =true;
 
 
 <div class="container">
-  <form action="action_page.php">
+  <form  onsubmit="Add_photo()" method="post" enctype="multipart/form-data">
     <div class="row">
       <div class="col-25">
         <label for="Titre">Titre :</label>
       </div>
       <div class="col-75">
-        <input type="text" id="Titre" name="firstname" placeholder="Le Titre de l'image...">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="URL">Url de l'image :</label>
-      </div>
-      <div class="col-75">
-        <input type="text" id="URL" name="URL" placeholder="Url...">
+        <input type="text" id="Titre" name="firstname" placeholder="Le Titre de l'image..." required>
       </div>
     </div>
      <div class="row">
       <div class="col-25">
-        <label for="subject">Description de l'image :</label>
+        <label for="Description">Description de l'image :</label>
       </div>
-      <div class="col-75">
-        <textarea id="subject" name="subject" placeholder="Ex: fleur, oiseaux,etc." style="height:200px"></textarea>
-      </div>
-    </div>
+       <div class="col-75">
+         <textarea id="Description" name="subject" placeholder="Ex: fleur, oiseaux,etc." style="height:200px" required></textarea>
+       </div>
+     </div>
 	<div class="row">
 	 <div class="col-25">
 	 <label for="fichier image">Selectionner le fichier image :</label> 
 	 </div>
 	<div class="col-75">
-      <input type="file" name="file">
+       <input name="fileToUpload" id="fileToUpload" size="35" type="file" accept=".jpg,.jpeg,.png,.gif" required>
     </div>
-	
 	</div>
-    <div class="row">
-      <input type="submit" value="Submit" onclick="Add_photo();">
+	<div class="row">
+      <input value="Upload Image" type="submit" value="Submit">
     </div>
   </form>
-</div> 
-
-
-
-
-
-
+</div>
 </body>
 
 
@@ -109,10 +89,17 @@ $connecter =true;
 <script>
 function Add_photo()
 {
-	<?php
 	
-	?>
-	
+	$idimage = 1;
+	$Titre = document.getElementById("Titre").value; 
+	$Description = document.getElementById("Description").value;
+	$Url = "images/" + $_FILES["fileToUpload"]["name"];
+	$pseudonyme = $_SESSION['username'];
+	$insertion = $mybd->exec("INSERT INTO images(idimages,Titre,Description,Url,pseudonyme) VALUES($idimage,$Titre,$Description,$Url,$pseudonyme)"); 
+	echo('total insertion est ' . $insertion); 
+	header("refresh:0");
 }
+
+
 
 </script>

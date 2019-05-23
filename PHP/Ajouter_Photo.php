@@ -1,5 +1,8 @@
 <?php
 session_start();
+$_SESSION['username'] = "allo";
+$allo = $_SESSION['username'];
+$connecter =true;
 ?>
 
 <?php
@@ -17,28 +20,99 @@ session_start();
 
 <?php
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
-		$stm = $Mybd->prepare("CALL VerifierCompte(?,?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-		$stm->bindParam(1, $username);
-		$stm->bindParam(2, $password);
-		$stm->execute();
-		$donnees = $stm->fetch();
-		if($donnees[0] === 'N')
-		{
-		 	$Erreur= "Invalid username or password";
-		}
-		else {
-			$_SESSION['username'] = $username; //Store username to session for futher authorization
-			header("location:Photo.php");
-			exit;
-		}
+		
+		
 	}
 ?>
 
 
 <!DOCTYPE html>
 <header>
+<link rel="stylesheet" type="text/css" href="CSS.Ajouter_photo.css">
 </header>
 <body>
+
+<navigation>
+<div class="topnav">
+  <a href="<Photo.php">Galerie Photo</a>
+  <a href="Ajout.php">Ajouter une photo</a>
+  <a style="float:right;" href="#logout">
+  <?php
+	if($connecter==true){
+		echo "logout";
+	}
+  ?> </a>
+  <?php
+	if($connecter==false)
+	{
+		echo "<a style='float:right;' href='login.php'> Login </a>";
+	}
+	else
+	{
+	  echo "<a style='float:right;' href='#Profil'>$allo</a>";
+	}
+  ?>
+</div>
+</navigation>
+
+
+<div class="container">
+  <form action="action_page.php">
+    <div class="row">
+      <div class="col-25">
+        <label for="Titre">Titre :</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="Titre" name="firstname" placeholder="Le Titre de l'image...">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="URL">Url de l'image :</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="URL" name="URL" placeholder="Url...">
+      </div>
+    </div>
+     <div class="row">
+      <div class="col-25">
+        <label for="subject">Description de l'image :</label>
+      </div>
+      <div class="col-75">
+        <textarea id="subject" name="subject" placeholder="Ex: fleur, oiseaux,etc." style="height:200px"></textarea>
+      </div>
+    </div>
+	<div class="row">
+	 <div class="col-25">
+	 <label for="fichier image">Selectionner le fichier image :</label> 
+	 </div>
+	<div class="col-75">
+      <input type="file" name="file">
+    </div>
+	
+	</div>
+    <div class="row">
+      <input type="submit" value="Submit" onclick="Add_photo();">
+    </div>
+  </form>
+</div> 
+
+
+
+
+
+
 </body>
+
+
+
+<script>
+function Add_photo()
+{
+	<?php
+	
+	?>
+	
+}
+
+</script>

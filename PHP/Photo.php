@@ -70,6 +70,7 @@ if ($connecter)
 <table>
 	<?php
 	  $id = 1;
+		$nombrecolonne = 1;
 		$stm = $Mybd->prepare("CALL GetImages()", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
 		$stm->execute();
 		while ($donnees = $stm->fetch())
@@ -82,130 +83,30 @@ if ($connecter)
 			{
 				$Nbcommentaires = $comment[0];
 			}
-		echo '<td><a href = "PhotoVue.php?id="' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
-		. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:2017 </br>
-		Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
-		$id++;
+			if($nombrecolonne == 1)
+			{
+				echo '<tr><td><a href = "PhotoVue.php?id="' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
+				. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:2017 </br>
+				Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
+				$id++;
+			}
+			else if($nombrecolonne == 7)
+			{
+				echo '</tr><tr><td><a href = "PhotoVue.php?id="' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
+				. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:2017 </br>
+				Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
+				$id++;
+			}
+			else {
+				echo '<td><a href = "PhotoVue.php?id="' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
+				. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:2017 </br>
+				Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
+				$id++;
+			}
 		$stml->closeCursor();
 		}
 		$stm->closeCursor();
 	?>
-	<tr>
-		<td>
-			<a href="PhotoVue.php?id=1" >
-    	<img src="images/1.jpg" alt='Nature'>
-			</a>
-			<div class="Info">Titre:Allo</br>
-			Description:Allo toi</br>
-			Pseudonyme:Allo</br>
-			Date:Allo</br>
-			Nombres de commentaires:Allo</br></div>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=2" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=3" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=4" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=5" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=6" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=7" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="PhotoVue.php?id=8" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=9" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=10" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=11" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=12" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=13" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=14" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="PhotoVue.php?id=15" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=16" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=17" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=18" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=19" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=20" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-		<td>
-			<a href="PhotoVue.php?id=21" >
-			<img src="images/1.jpg" alt='Nature'>
-			</a>
-		</td>
-	</tr>
 </table>
 
 

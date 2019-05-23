@@ -28,7 +28,7 @@ session_start();
 						if($numrows == 1)
 						{
 								$_SESSION['username'] = $username; //Store username to session for futher authorization 
-								header("location:inscription.php");
+								header("location:PhotoVue.php");
 								exit;
 								$Erreur=  "User connecter";
 						}

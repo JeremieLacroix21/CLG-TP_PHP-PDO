@@ -69,11 +69,13 @@ $Mybd=null;
 					$stm1->execute();
 					while ($donnees1 = $stm1->fetch())
 					{
-					echo $donnees1[0].': '.$donnees1[1]
+					echo $donnees1[0].': '.$donnees1[1];
+
 					if($donnees1[0] == $username)
 					{
-						echo "<input type='Submit' value='delete'>"
+						echo "<input type='Submit' value='delete'>";
 					}
+
 					echo '</br>';
 					}
 					$stm1->closeCursor();

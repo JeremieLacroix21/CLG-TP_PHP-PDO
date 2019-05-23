@@ -73,6 +73,11 @@ if ($connecter)
 			<a href="PhotoVue.php?id=1" >
     	<img src="images/1.jpg" alt='Nature'>
 			</a>
+			<div class="Info">Titre:Allo</br>
+			Description:Allo toi</br>
+			Pseudonyme:Allo</br>
+			Date:Allo</br>
+			Nombres de commentaires:Allo</br></div>
 		</td>
 		<td>
 			<a href="PhotoVue.php?id=2" >

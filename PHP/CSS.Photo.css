@@ -1,11 +1,18 @@
 /* Add a black background color to the top navigation */
-.body{
+body{
 	background-color:white;
 }
 
 .topnav {
   background-color: black;
 	overflow: hidden;
+}
+
+.Info{
+	display: none;
+}
+a:hover + div{
+	display: block;
 }
 table{
 	width:100%;
@@ -14,13 +21,11 @@ table{
 }
 td{
 	padding : 30px;
-	align="center";
-	valign="center";
 }
 
 img{
 	width:200px;
-	height:200px;
+	height:150px;
 	opacity: 1;
   cursor: pointer;
 }

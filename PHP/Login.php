@@ -40,8 +40,8 @@ session_start();
   <link rel="stylesheet" type="text/css" href="CSS.login.css">
 </head>
 
-<body>
-	<h1>Photo </h1>
+<body  style="background-color:black;">
+	<h1>Photo</h1>
 <div class="container">
 	<form action = "" method = "post">
 		<label>Pseudonyme  :</label>

@@ -3,27 +3,26 @@
 session_start();
 ?>
 <?php
-
 			$Erreur = "";
 			try {
 
 					$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
-
-
-					echo 'En ligne';
 			} catch (PDOException $e) {
 					print "Erreur !: " . $e->getMessage() . "<br/>";
 					die();
 			}
-	?>
+?>
 
 
 <header>
 <link rel="stylesheet" href="CSS.Photo.css">
 <header/>
 <?php
-		$Username=$_SESSION['username']; 
+	if (isset($_SESSION['username']))
+	{
+		$Username=$_SESSION['username'];
 		$connecter=true;
+	}
 ?>
 
 <body style="background-color:black;">
@@ -44,6 +43,11 @@ session_start();
 		echo "<a style='float:right;' href='#login'> Login </a>";
 	else
 		echo "<a style='float:right;' href='#Profil'> $Username </a>";
+
+		if(isset($_GET['myLinkVar1'])) {
+    // do something
+}
+
   ?>
 </div>
 </navigation>

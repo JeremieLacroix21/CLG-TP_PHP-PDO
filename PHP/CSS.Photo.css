@@ -4,7 +4,7 @@
 }
 
 .topnav {
-  background-color: white;
+  background-color: blue;
   overflow: hidden;
 }
 
@@ -20,7 +20,7 @@
 
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: #ddd;
+  background-color: blue;
   color: black;
 }
 

@@ -68,6 +68,7 @@ if ($connecter)
 </navigation>
 
 <table>
+	<tr>
 	<?php
 	  $id = 1;
 		$nombrecolonne = 1;
@@ -83,26 +84,19 @@ if ($connecter)
 			{
 				$Nbcommentaires = $comment[0];
 			}
-			if($nombrecolonne == 1)
-			{
-				echo '<tr><td><a href = "PhotoVue.php?id="' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
-				. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:2017 </br>
-				Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
-				$id++;
-			}
-			else if($nombrecolonne == 7)
+			if($nombrecolonne == 7) //fin de tr
 			{
 				echo '</tr><tr><td><a href = "PhotoVue.php?id="' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
 				. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:2017 </br>
 				Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
-				$id++;
 			}
 			else {
 				echo '<td><a href = "PhotoVue.php?id="' . $id . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
 				. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:2017 </br>
 				Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
-				$id++;
 			}
+			$id++;
+			$nombrecolonne++;
 		$stml->closeCursor();
 		}
 		$stm->closeCursor();

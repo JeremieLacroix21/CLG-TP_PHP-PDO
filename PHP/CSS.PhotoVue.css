@@ -54,3 +54,7 @@ img{
   overflow-y:scroll;
   height: 100px;
 }
+
+button{
+height: 20px;
+}

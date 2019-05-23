@@ -65,18 +65,19 @@ $Mybd=null;
 				try
 				{
 					$Mybd1 = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
-					$stm1 = $Mybd1->prepare("SELECT Pseudonyme,Message from Commentaires where IdImages = $idPhoto" );
+					$stm1 = $Mybd1->prepare("SELECT Pseudonyme,Message,idCommentaires from Commentaires where IdImages = $idPhoto" );
 					$stm1->execute();
 					while ($donnees1 = $stm1->fetch())
 					{
-					echo $donnees1[0].': '.$donnees1[1];
+					echo $donnees1[0].': '.$donnees1[1].'      ';
 
 					if($donnees1[0] == $username)
 					{
-						echo "<input type='Submit' value='delete'>";
+						echo "<button type='button' class='$donnees1[2]'>delete</button>";
 					}
 
-					echo '</br>';
+					echo '</br>'.'</br>';
+
 					}
 					$stm1->closeCursor();
 				}

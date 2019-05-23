@@ -13,7 +13,7 @@ session_start();
 
 		<?php
 		$username = $_SESSION['username'];
-		echo ("<a style='float:right;' href='#Profil'> $username </a>");
+		echo ( $username);
 		?>
 		<a style="float:right;" href="#logout"> logout </a>
 

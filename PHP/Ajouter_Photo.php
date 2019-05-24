@@ -50,6 +50,12 @@ if ($connecter)
 if (!isset($admin)) {
     $admin = 0;
 }
+$stm = $Mybd->prepare("CALL SelectNomPrenom(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+$stm->bindParam(1, $Username);
+$stm->execute();
+$donnees = $stm->fetch();
+$Nom = $donnees[0];
+$Prenom = $donnees[1];
 ?>
 
 <body>
@@ -70,7 +76,7 @@ if (!isset($admin)) {
 	    session_unset();
 	    header("Location: login.php");
 		}
-		echo "<a style='float:right;' href='Profil.php'> $Username </a>";
+echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
 	}
 	else
 	{

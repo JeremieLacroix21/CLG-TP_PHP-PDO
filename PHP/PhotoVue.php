@@ -10,21 +10,8 @@ $idPhoto = intval($_GET['id']);
 <html>
 
 <header>
-<navigation>
-	<div class="topnav">
-	<a href="Photo.php">Galerie Photo</a>
-		<a href="#about">About</a>
 
-		<?php
-		$username = $_SESSION['username'];
-		echo ("<a style='float:right;' href='#Profil'> $username </a>");
-		?>
-		<a style="float:right;" href="#logout"> logout </a>
-
-	</div>
-</navigation>
 </header>
-
 <?php
 
 try
@@ -39,15 +26,76 @@ try
 	$UsernameOwner = $donnees[0];
 	}
 	$stm->closeCursor();
-	
+
 }
 catch (PDOException $e)
-{ 
+{
 	echo('Erreur de connexion: ' . $e->getMessage());exit();
 }
-$Mybd=null;
 
 ?>
+
+<?php
+if (isset($_SESSION['username']))
+{
+	$connecter=true;
+}
+else {
+	$connecter=false;
+}
+if ($connecter)
+{
+	$stm = $Mybd->prepare("CALL VerifierAdmin(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+	$Username=$_SESSION['username'];
+	$stm->bindParam(1, $Username);
+	$stm->execute();
+	$donnees = $stm->fetch();
+	if($donnees[0] === 'Y')
+	{
+		$admin = 1;
+	}
+	else {
+		$admin = 0;
+	}
+}
+if (!isset($admin)) {
+    $admin = 0;
+}
+$stm = $Mybd->prepare("CALL SelectNomPrenom(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+$stm->bindParam(1, $Username);
+$stm->execute();
+$donnees = $stm->fetch();
+$Nom = $donnees[0];
+$Prenom = $donnees[1];
+?>
+
+<body>
+<navigation>
+<div class="topnav">
+  <a href="Photo.php">Galerie Photo</a>
+	<?php
+	if($admin == 1){
+		echo ("<a href='Admin.php'>Admin</a>");
+	}
+	if($connecter==true){
+		echo "<a href='Ajouter_Photo.php'>Ajouter une photo</a>";
+		echo "logout";
+		echo "<a style='float:right;' href='?logout=true'> logout</a>";
+		if(isset($_GET['logout']))
+		{
+			session_start();
+	    session_unset();
+	    header("Location: login.php");
+		}
+		echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
+	}
+	else
+	{
+		echo "<a style='float:right;' href='login.php'> Login </a>";
+	}
+  ?>
+</div>
+</navigation>
 
 <?php
 
@@ -63,10 +111,10 @@ try
 	$Url = $donnees[0];
 	}
 	$stm->closeCursor();
-	
+
 }
 catch (PDOException $e)
-{ 
+{
 	echo('Erreur de connexion: ' . $e->getMessage());exit();
 }
 $Mybd=null;
@@ -83,9 +131,9 @@ $Mybd=null;
 		<div class='photo'>
 			<table style="width:100%;">
 				<tr>
-					<th><a href='#User'> <?php echo($UsernameOwner) ?> </a>
+					<th><b> <?php echo($UsernameOwner) ?> </b>
 					<form action="" method="POST">
-					<?php if($username == $UsernameOwner || $username == 'Admin')
+					<?php if($Username == $UsernameOwner || $Username == 'Admin')
 					{
 					echo ("<input style='float:right' type='submit' value='delete photo' name='PhotoDelete'>");
 					}
@@ -110,7 +158,7 @@ $Mybd=null;
 					{
 						echo $donnees1[0].': '.$donnees1[1].'      ';
 
-						if($donnees1[0] == $username || $username == 'Admin')
+						if($donnees1[0] == $Username || $Username == 'Admin')
 						{
 							echo "<button type='submit' value='$donnees1[2]' name='zero'> delete </button>";
 							
@@ -140,7 +188,7 @@ $Mybd=null;
 			$stm = $Mybd->prepare("CALL InsertionCommentaire(?,?,?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
 			$Comment = $_POST['Commentaire'];
 			$stm->bindParam(1, $idPhoto);
-			$stm->bindParam(2, $username);
+			$stm->bindParam(2, $Username);
 			$stm->bindParam(3, $Comment);
 			$stm->execute();
 			$donnees = $stm->fetch();
@@ -177,6 +225,6 @@ if (isset($_POST["zero"]))
 
 if (isset($_POST["PhotoDelete"]))
 {
-	Deletephoto($idPhoto,$username);
+	Deletephoto($idPhoto,$Username);
 }
 ?>

@@ -4,6 +4,8 @@ $idPhoto = intval($_GET['id']);
 ?>
 <!DOCTYPE html>
 <link rel="stylesheet" href="CSS.PhotoVue.css">
+<script src="jquery-3.3.1.js"></script>
+<script src="jquery-3.3.1.min.js"></script>
 
 <html>
 
@@ -47,53 +49,58 @@ $Mybd=null;
 
 ?>
 
+
+
 <body>
+
+
+
 	<div class="photolist">
 		<div class='photo'>
 			<table style="width:100%;">
 				<tr>
-					<th><a href='#User'> <?php echo($UsernameOwner); ?> </a></th>
+					<th><a href='#User'> <?php echo($UsernameOwner); ?> </a>
+					<?php if($username == $UsernameOwner || $username == 'Admin')
+					{
+					echo ("<a href='index.php?hello=true'>Run PHP Function</a>");
+					}
+					?>
+				</th>
 				</tr>
 				<tr>
 					<th><img src='images/<?php echo $idPhoto ?>.jpg' ></th>
 				</tr>
 			</table>
 		</div>
-		<div class="commentaire" >
-		<p>
+		<div class="commentaire" method="post" >
+		<form action="" method="POST">
 			<?php
 				try
 				{
 					$Mybd1 = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
 					$stm1 = $Mybd1->prepare("SELECT Pseudonyme,Message,idCommentaires from Commentaires where IdImages = $idPhoto" );
 					$stm1->execute();
-					echo "	<form method='post'>";
 					while ($donnees1 = $stm1->fetch())
 					{
 						echo $donnees1[0].': '.$donnees1[1].'      ';
 
 						if($donnees1[0] == $username)
 						{
-							echo "<button type='button' name='Comments' value='$donnees1[2]'>delete</button>";
+							echo "<input type='submit' value='$donnees1[2]' name='zero'>";
 						}
-
 						echo '</br>'.'</br>';
-
 					}
-					echo "</form>";
 					$stm1->closeCursor();
 				}
 				catch (PDOException $e)
 				{ echo('Erreur de connexion: ' . $e->getMessage());exit();}
 				$Mybd1=null;
 			?>
-			
-		</p>
+			</form>
 		</div>
 		<form method="post">
 			<input type ="text" style='width:90%;' name="Commentaire"><input type="Submit" value="Commenter">
 		</form>
-		<br>
 	</div>
 </body>
 </html>
@@ -116,16 +123,17 @@ $Mybd=null;
 ?>
 
 <?php
+function DeleteComment($id){
 	$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
 	$stm = $Mybd->prepare("CALL DeleteCommentaires(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-	$stm->bindParam(1, $id);
-	$id = $answer;
+	$stm->bindParam(1, $id1);
+	$id1 = $id;
 	$stm->execute();
-	$donnees = $stm->fetch();
-	header("Refresh:0");		
+	header("Refresh:0");
+}	
+
+if (isset($_POST["zero"]))
+{
+	DeleteComment($_POST["zero"]);
+}
 ?>
-
-
-
-
-

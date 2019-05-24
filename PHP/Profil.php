@@ -235,6 +235,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
 	 }
 	}
 	?>
+
+	<!-- Création Cookie -->
+ <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+ <table>
+	 <h1>Se souvenir de moi</h1>
+	 <tr>
+		 <td class="Souvenir">
+		 <label for="psw"><b>Se souvenir de moi: </b></label>
+		 </td>
+		 <td style="width:10px; padding-top:18px;">
+		 <input type="checkbox"style="width:20px;" name="souvenir" value="souvenir" id="souvenir"><label for="souvenir">
+		 </td>
+	 </tr>
+ </table>
+ <?php
+	 if(isset($_SESSION["errNewEmail"]))
+	 {
+				 $errorEmail = $_SESSION["errNewEmail"];
+				 echo "<span id='errNewEmail' style = 'color:red'>$errorEmail</span>";
+	 }
+	 if($id === 2){
+		 echo '<div class="Reussi">Changement de email reussi</div>';
+	 }
+	 else{
+		 echo '<div class="NonReussi"></div>';
+	 }
+ ?>
+		 <div class="clearfix">
+	 <button type="submit" class="signupbtn" name="buttonEmail" >Confirmer</button>
+		 </div>
+ </form>
 </div>
 
 </body>

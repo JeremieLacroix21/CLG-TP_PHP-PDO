@@ -63,6 +63,7 @@ $Prenom = $donnees[1];
 		echo "<a style='float:right;' href='?logout=true'> logout</a>";
 		if(isset($_GET['logout']))
 		{
+			setcookie("User", null , -1);
 			session_start();
 	    session_unset();
 	    header("Location: login.php");
@@ -245,7 +246,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
 		 <label for="psw"><b>Se souvenir de moi: </b></label>
 		 </td>
 		 <td style="width:10px; padding-top:18px;">
-		 <input type="checkbox"style="width:20px;" name="souvenir" value="check"><label for="souvenir">
+			 <?php
+			 if (isset($_COOKIE["User"])) {
+        echo '<input type="checkbox"style="width:20px;" name="souvenir" value="check" checked><label for="souvenir">';
+    }
+		else {
+			echo '<input type="checkbox"style="width:20px;" name="souvenir" value="check"><label for="souvenir">';
+		}
+		?>
 		 </td>
 	 </tr>
  </table>
@@ -257,12 +265,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
  <?php
 	if(isset($_POST['souvenir']) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonSouvenir']))
 	{
-		//Création du cookies
-		echo "allo";
+		unset ($_POST["buttonSouvenir"]);
+		$demain = time() + (60 * 60 * 24);
+    setcookie("User", $Username , $demain);
 		header("Refresh:0; url=Profil.php?reussi=0");
 	}
-	else {
-		//Détruire le cookie
+	else if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonSouvenir'])){
+		unset ($_POST["buttonSouvenir"]);
+		setcookie("User", null , -1);
+		header("Refresh:0; url=Profil.php?reussi=0");
 	}
  ?>
 </div>

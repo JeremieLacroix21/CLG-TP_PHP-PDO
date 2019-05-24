@@ -113,8 +113,9 @@ if (!isset($admin)) {
 
 <?php
 unset ($_SESSION["errNewPwd"]);
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
 {
+ unset ($_POST["buttonMDP"]);
  $motdepasse = $_POST['psw'];
  $confirmation = $_POST['psw-repeat'];
  if(strcmp($motdepasse, $confirmation) != 0)
@@ -133,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			 header("Refresh:0; url=Profil.php?reussi=1");
 		 }
 	 } catch (\Exception $e) {
-	 	$_SESSION['errEmail'] = $e->getMessage();
+	 	$_SESSION['errNewPwd'] = $e->getMessage();
 		header("Refresh:0; url=Profil.php?reussi=0");
 	 }
 }
@@ -149,14 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		<label for="psw"><b>Nouveau Email: </b></label>
 		</td>
 		<td>
-		<input type="password" placeholder="Entrer votre nouveau email" name="psw" required><br>
-		<?php
-      if(isset($_SESSION["errNewEmail"]))
-			{
-            $errorEmail = $_SESSION["errNewEmail"];
-            echo "<span id='errEmail' style = 'color:red'>$errorEmail</span>";
-      }
-    ?>
+		<input type="text" placeholder="Entrer votre nouveau email" name="email" required><br>
 		</td>
 	</tr>
 	<tr>
@@ -164,10 +158,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		<label for="psw-repeat"><b>Confirmation: </b></label>
 		</td>
 		<td>
-		<input type="password" placeholder="Entrer la confirmation du email" name="psw-repeat" required><br>
+		<input type="text" placeholder="Entrer la confirmation du email" name="email-repeat" required><br>
 		</td>
 	</tr>
 </table>
+<?php
+	if(isset($_SESSION["errNewEmail"]))
+	{
+				$errorEmail = $_SESSION["errNewEmail"];
+				echo "<span id='errNewEmail' style = 'color:red'>$errorEmail</span>";
+	}
+	if($id === 2){
+		echo '<div class="Reussi">Changement de email reussi</div>';
+	}
+	else{
+		echo '<div class="NonReussi"></div>';
+	}
+?>
     <div class="clearfix">
 	<button type="submit" class="signupbtn" name="buttonEmail" >Confirmer</button>
     </div>
@@ -175,9 +182,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 	<?php
 	unset ($_SESSION["errNewEmail"]);
-	if ($_SERVER['REQUEST_METHOD'] == 'POST')
+	if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonEmail']))
 	{
-
+		unset ($_POST["buttonEmail"]);
+		$email = $_POST['email'];
+	  $confirmationemail = $_POST['email-repeat'];
+	  if(strcmp($email, $confirmationemail) != 0)
+	  {
+	 	 $_SESSION['errNewEmail'] = "Les email ne correspondent pas";
+	 		header("Refresh:0; url=Profil.php?reussi=0");
+	  }
+	  else {
+		 $stm = $Mybd->prepare("CALL VerifierEmail(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+ 		 $stm->bindParam(1, $email);
+ 		 $stm->execute();
+ 		 $donnees = $stm->fetch();
+      $find1 = strpos($email, '@');
+      $find2 = strpos($email, '.');
+ 		  if($donnees[0] == 'Y' ||$find1 == false || $find2 == false)
+ 		  {
+         if ($donnees[0] == 'Y' )
+         {
+         	$_SESSION['errNewEmail'] = "Adresse courriel deja utilise";
+					header("Refresh:0; url=Profil.php?reussi=0");
+         }
+         else {
+           $_SESSION['errNewEmail'] = "Adresse courriel incorrect";
+					 header("Refresh:0; url=Profil.php?reussi=0");
+         }
+ 		  }
+			else {
+				try {
+	 	 		 $stm = $Mybd->prepare("CALL ChangeEmail(?,?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+	 	   	 $stm->bindParam(1, $Username);
+	 	   	 $stm->bindParam(2, $email);
+	 	   	 $total = $stm->execute();
+	 	 		 if($total == 1)
+	 	 		 {
+	 	 			 header("Refresh:0; url=Profil.php?reussi=2");
+	 	 		 }
+	 	 	 } catch (\Exception $e) {
+	 	 	 	$_SESSION['errNewEmail'] = $e->getMessage();
+	 	 		header("Refresh:0; url=Profil.php?reussi=0");
+	 	 	 }
+			}
+	 }
 	}
 	?>
 </div>

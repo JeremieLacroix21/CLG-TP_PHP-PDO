@@ -1,6 +1,5 @@
 <?php
 session_start();
-$_SESSION['username'] = "Admin";
 $allo = $_SESSION['username'];
 $connecter =true;
 ?>
@@ -25,26 +24,57 @@ $connecter =true;
 <header>
 <link rel="stylesheet" type="text/css" href="CSS.Ajouter_photo.css">
 </header>
-<body>
+<?php
+if (isset($_SESSION['username']))
+{
+	$connecter=true;
+}
+else {
+	$connecter=false;
+}
+if ($connecter)
+{
+	$stm = $Mybd->prepare("CALL VerifierAdmin(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+	$Username=$_SESSION['username'];
+	$stm->bindParam(1, $Username);
+	$stm->execute();
+	$donnees = $stm->fetch();
+	if($donnees[0] === 'Y')
+	{
+		$admin = 1;
+	}
+	else {
+		$admin = 0;
+	}
+}
+if (!isset($admin)) {
+    $admin = 0;
+}
+?>
 
+<body>
 <navigation>
 <div class="topnav">
-  <a href="<Photo.php">Galerie Photo</a>
-  <a href="Ajout.php">Ajouter une photo</a>
-  <a style="float:right;" href="#logout">
-  <?php
-	if($connecter==true){
-		echo "logout";
+  <a href="Photo.php">Galerie Photo</a>
+	<?php
+	if($admin == 1){
+		echo ("<a href='Admin.php'>Admin</a>");
 	}
-  ?> </a>
-  <?php
-	if($connecter==false)
-	{
-		echo "<a style='float:right;' href='login.php'> Login </a>";
+	if($connecter==true){
+		echo "<a href='Ajouter_Photo.php'>Ajouter une photo</a>";
+		echo "logout";
+		echo "<a style='float:right;' href='?logout=true'> logout</a>";
+		if(isset($_GET['logout']))
+		{
+			session_start();
+	    session_unset();
+	    header("Location: login.php");
+		}
+		echo "<a style='float:right;' href='Profil.php'> $Username </a>";
 	}
 	else
 	{
-	  echo "<a style='float:right;' href='#Profil'>$allo</a>";
+		echo "<a style='float:right;' href='login.php'> Login </a>";
 	}
   ?>
 </div>
@@ -71,7 +101,7 @@ $connecter =true;
      </div>
 	<div class="row">
 	 <div class="col-25">
-	 <label for="fichier image">Selectionner le fichier image :</label> 
+	 <label for="fichier image">Selectionner le fichier image :</label>
 	 </div>
 	<div class="col-75">
        <input name="fileToUpload" id="fileToUpload" size="35" type="file" accept=".jpg,.jpeg,.png,.gif" required>
@@ -89,14 +119,14 @@ $connecter =true;
 <script>
 function Add_photo()
 {
-	
+
 	$idimage = 1;
-	$Titre = document.getElementById("Titre").value; 
+	$Titre = document.getElementById("Titre").value;
 	$Description = document.getElementById("Description").value;
 	$Url = "images/" + $_FILES["fileToUpload"]["name"];
 	$pseudonyme = $_SESSION['username'];
-	$insertion = $mybd->exec("INSERT INTO images(idimages,Titre,Description,Url,pseudonyme) VALUES($idimage,$Titre,$Description,$Url,$pseudonyme)"); 
-	echo('total insertion est ' . $insertion); 
+	$insertion = $mybd->exec("INSERT INTO images(idimages,Titre,Description,Url,pseudonyme) VALUES($idimage,$Titre,$Description,$Url,$pseudonyme)");
+	echo('total insertion est ' . $insertion);
 	header("refresh:0");
 }
 

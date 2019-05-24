@@ -104,59 +104,10 @@ button:hover {
   }
 }
 
-/* Popup container */
-.popup {
-  position: fixed;
-	width: 450px;
-	height: 75px;
-	bottom: 200px;
-	left: 800px;
-  cursor: pointer;
+.Reussi{
+	display: block;
 }
 
-@media screen and (max-width: 1000px) {
-	.popup {
-		position:relative;
-		left: 225px;
-  }
-}
-@media screen and (max-width: 1000px) {
-	.popuptext {
-		position:relative;
-		left: 225px;
-  }
-}
-/* The actual popup (appears on top) */
-.popup .popuptext {
-	position: fixed;
-	width: 450px;
-	height: 75px;
-	bottom: 200px;
-	left: 800px;
-  visibility: hidden;
-	position: fixed;
-  background-color: lightgray;
-  color: black;
-  border-radius: 6px;
-  padding: 8px;
-  z-index: 1;
-  margin-left: -80px;
-}
-
-/* Toggle this class when clicking on the popup container (hide and show the popup) */
-.popup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s
-}
-
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity:1 ;}
+.NonReussi{
+	display: none;
 }

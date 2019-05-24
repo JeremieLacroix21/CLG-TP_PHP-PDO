@@ -27,7 +27,7 @@ session_start();
 			 	$Erreur= "Invalid username or password";
 			}
 			else {
-				$_SESSION['username'] = $username; //Store username to session for futher authorization
+				$_SESSION['username'] = $username;//Store username to session for futher authorization
 				header("location:Photo.php");
 				exit;
 			}
@@ -40,8 +40,8 @@ session_start();
   <link rel="stylesheet" type="text/css" href="CSS.login.css">
 </head>
 
-<body  style="background-color:black;">
-	<h1>Photo</h1>
+<body>
+	<h1>Galerie Photo</h1>
 <div class="container">
 	<form action = "" method = "post">
 		<label>Pseudonyme  :</label>
@@ -50,7 +50,7 @@ session_start();
 			<input type="password" placeholder="Entrer votre mot de passe" name ="password" required>
 		<br>
 			<button type="submit" value = " Submit ">Se connecter</button>
-			<button type="button" style="background-color:grey">S'inscrire</button>
+			<button type="button"  onclick="window.location.href='Inscription.php?inscrit=0'"style="background-color:grey">S'inscrire</button>
 	</form>
 	<?php	echo ($Erreur); ?>
 </div>

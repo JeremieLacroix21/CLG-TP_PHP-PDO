@@ -1,12 +1,12 @@
 .topnav {
   background-color: black;
-  overflow: hidden;
+	overflow: hidden;
 }
 
 /* Style the links inside the navigation bar */
 .topnav a {
   float: left;
-  background-color: black;
+	color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -16,7 +16,7 @@
 /* Change the color of links on hover */
 .topnav a:hover {
   background-color: blue;
-  color: black;
+  color: white;
 }
 /* Style inputs, select elements and textareas */
 input[type=text], select, textarea{
@@ -79,5 +79,4 @@ input[type=submit] {
     width: 100%;
    margin-top: 0;
   }
-} 
-
+}

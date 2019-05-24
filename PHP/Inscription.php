@@ -97,10 +97,17 @@ try {
 
     <div class="clearfix">
 	<button type="submit" class="signupbtn" name="button" onclick="create()">Sign Up</button>
-    <button type="button" class="cancelbtn">Cancel</button>
+    <button type="button" onclick="window.location.href='login.php'" class="cancelbtn">Cancel</button>
     </div>
   </div>
   <?php
+  $id = intval($_GET['inscrit']);
+  if($id === 1){
+    echo '<div class="Reussi">Inscription Reussi</div>';
+  }
+  else{
+    echo '<div class="NonReussi"></div>';
+  }
   unset ($_SESSION["errPwd"]);
   unset ($_SESSION["errPseudo"]);
   if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -110,6 +117,7 @@ try {
 	  if(strcmp($motdepasse, $confirmation) != 0)
 	  {
 		  $_SESSION['errPwd'] = "Les mots de passes ne correspondent pas";
+      header("Refresh:0; url=Inscription.php?inscrit=0");
 	  }
 	  else
 	  {
@@ -122,6 +130,7 @@ try {
 	  if($donnees[0] === 'Y')
 	  {
 		 $_SESSION['errPseudo'] = "Pseudonyme deja utilise";
+     header("Refresh:0; url=Inscription.php?inscrit=0");
 	  }
 	  else
 	  {
@@ -139,51 +148,38 @@ try {
         if ($donnees[0] == 'Y' )
         {
         	$_SESSION['errEmail'] = "Adresse courriel deja utilise";
+          header("Refresh:0; url=Inscription.php?inscrit=0");
         }
         else {
           $_SESSION['errEmail'] = "Adresse courriel incorrect";
+          header("Refresh:0; url=Inscription.php?inscrit=0");
         }
 		  }
 		  else
 		  {
       unset($_SESSION['errEmail']);
 			Try {
-			$stmt1 = $Mybd->prepare("INSERT INTO Membres(Pseudonyme, MotDePasse,Nom,Prenom,Email,Admin) VALUES (?,?,?,?,?,?)");
+			$stmt1 = $Mybd->prepare("INSERT INTO Membres(Pseudonyme, MotDePasse,Nom,Prenom,Email) VALUES (?,?,?,?,?)");
 			$stmt1->bindParam(1, $pseudonyme);
 			$stmt1->bindParam(2, $motdepasse);
 			$stmt1->bindParam(3, $nom);
 			$stmt1->bindParam(4, $prenom);
 			$stmt1->bindParam(5, $email);
 			$stmt1->bindParam(6, $admin);
-      $stmt1 = $Mybd->prepare("INSERT INTO Membres(Pseudonyme, MotDePasse,Nom,Prenom,Email,Admin) VALUES (:fpseudo,:fmdp,:fnom,:fprenom,:femail,:fadmin)");
+      $stmt1 = $Mybd->prepare("INSERT INTO Membres(Pseudonyme, MotDePasse,Nom,Prenom,Email) VALUES (:fpseudo,:fmdp,:fnom,:fprenom,:femail)");
       $allo = $stmt1->execute([
     'fpseudo' => $_POST['pseudonyme'],
     'fmdp' => $_POST['psw'],
     'fnom' => $_POST['Nom'],
     'fprenom' => $_POST['Prenom'],
     'femail' => $_POST['Email'],
-    'fadmin' => 0,
-]);
+  ]);
         if($allo == 1)
         {
-          echo ('<div class="popup" onclick="myFunction();">
-          <span class="popuptext" id="myPopup">Inscription réussi!
-          <button type="button" class="okbtn" onclick="ChangePage();">Ok</button>
-          </span>
-          </div>');
-          ?>
-          <script>
-         // When the user clicks on <div>, open the popup
-         function myFunction() {
-           var popup = document.getElementById("myPopup");
-           popup.classList.toggle("show");
-         }
-         function ChangePage() {
-           window.location.href = "Login.php";
-         }
-         </script>
-          <script> myFunction() </script>
-          <?php
+          header("Refresh:0; url=Inscription.php?inscrit=1");
+        }
+        else {
+          header("Refresh:0; url=Inscription.php?inscrit=0");
         }
 		}
 		catch (PDOException $e)
@@ -193,7 +189,7 @@ try {
 		  }
 		 $stm->closeCursor();
 	  }
-	  }
+    }
   }
  ?>
 </form>

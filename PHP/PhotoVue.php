@@ -67,24 +67,27 @@ $Mybd=null;
 					$Mybd1 = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
 					$stm1 = $Mybd1->prepare("SELECT Pseudonyme,Message,idCommentaires from Commentaires where IdImages = $idPhoto" );
 					$stm1->execute();
+					echo "	<form method='post'>";
 					while ($donnees1 = $stm1->fetch())
 					{
-					echo $donnees1[0].': '.$donnees1[1].'      ';
+						echo $donnees1[0].': '.$donnees1[1].'      ';
 
-					if($donnees1[0] == $username)
-					{
-						echo "<button type='button' class='$donnees1[2]'>delete</button>";
+						if($donnees1[0] == $username)
+						{
+							echo "<button type='button' name='Comments' value='$donnees1[2]'>delete</button>";
+						}
+
+						echo '</br>'.'</br>';
+
 					}
-
-					echo '</br>'.'</br>';
-
-					}
+					echo "</form>";
 					$stm1->closeCursor();
 				}
 				catch (PDOException $e)
 				{ echo('Erreur de connexion: ' . $e->getMessage());exit();}
 				$Mybd1=null;
 			?>
+			
 		</p>
 		</div>
 		<form method="post">
@@ -111,3 +114,18 @@ $Mybd=null;
 			}
 	}
 ?>
+
+<?php
+	$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+	$stm = $Mybd->prepare("CALL DeleteCommentaires(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+	$stm->bindParam(1, $id);
+	$id = $answer;
+	$stm->execute();
+	$donnees = $stm->fetch();
+	header("Refresh:0");		
+?>
+
+
+
+
+

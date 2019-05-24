@@ -69,7 +69,6 @@ $Nom = $donnees[0];
 $Prenom = $donnees[1];
 ?>
 
-<body>
 <navigation>
 <div class="topnav">
   <a href="Photo.php">Galerie Photo</a>

@@ -13,7 +13,8 @@ session_start();
 
 <header>
 <link rel="stylesheet" href="CSS.Photo.css">
-<header/>
+<link rel="stylesheet" href="CSS.Admin.css">
+
 
 <?php
 if (isset($_SESSION['username']))
@@ -49,7 +50,7 @@ $Nom = $donnees[0];
 $Prenom = $donnees[1];
 ?>
 
-<body>
+
 <navigation>
 <div class="topnav">
   <a href="Photo.php">Galerie Photo</a>
@@ -77,4 +78,23 @@ $Prenom = $donnees[1];
 </div>
 </navigation>
 
+</header>
+
+<body>
+	<div>
+		<table style="border:solid 2px black">
+			<tr>
+				<th>Firstname</th>
+				<th>Lastname</th>
+			</tr>
+			<tr>
+				<td>Peter</td>
+				<td>Griffin</td>
+			</tr>
+			<tr>
+				<td>Lois</td>
+				<td>Griffin</td>
+			</tr>
+		</table>
+	</div>
 </body>

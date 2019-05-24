@@ -34,7 +34,7 @@ session_start();
 				$stm->bindParam(1, $username);
 				$stm->bindParam(2, $Ip);
 				$stm->bindParam(3, $Date);
-				$Date = date("Y/m/d");
+				$Date= datetime("Y-m-d H:i:s");
 				$Ip = $_SERVER['REMOTE_ADDR'];
 				$stm->execute();
 				header("location:Photo.php");

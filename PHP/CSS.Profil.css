@@ -22,7 +22,7 @@ input{
 
 td{
 width: 100px;
-text-align: center;
+text-align:right;
 }
 
 h1{
@@ -60,4 +60,25 @@ button{
 
 .topnav a:hover {
   background-color: blue;
+}
+
+#errNewPwd{
+	position:relative;
+	left: 810px;
+}
+#errNewEmail{
+	position:relative;
+	left: 700px;
+}
+
+.Reussi{
+	display: block;
+	position:relative;
+	left: 820px;
+}
+
+.NonReussi{
+	display: none;
+	position:relative;
+	left: 820px;
 }

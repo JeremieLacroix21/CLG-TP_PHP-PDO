@@ -62,7 +62,7 @@ if (!isset($admin)) {
 	    session_unset();
 	    header("Location: login.php");
 		}
-		echo "<a style='float:right;' href='Profil.php'> $Username </a>";
+		echo "<a style='float:right;' href='Profil.php?reussi=0'> $Username </a>";
 	}
 	else
 	{

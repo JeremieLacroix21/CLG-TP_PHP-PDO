@@ -1,0 +1,63 @@
+body{
+	background-color:white;
+}
+
+.topnav {
+  background-color: black;
+	overflow: hidden;
+}
+
+a:hover + div{
+	display: block;
+}
+
+input{
+	width: 250px;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+td{
+width: 100px;
+text-align: center;
+}
+
+h1{
+	position: relative;
+	left: 700px;
+}
+
+table{
+	position: relative;
+	left: 700px;
+	border:0;
+}
+
+button{
+	position: relative;
+	background-color: blue;
+	display: inline-block;
+	  left: 970px;
+  color: white;
+  font-size: 15px;
+	padding: 10px 25px;
+	margin: 6px 0;
+	border: none;
+  cursor: pointer;
+}
+
+.topnav a {
+  float: left;
+	color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: blue;
+}

@@ -12,7 +12,7 @@ session_start();
 ?>
 
 <header>
-<link rel="stylesheet" href="CSS.Photo.css">
+<link rel="stylesheet" href="CSS.Profil.css">
 <header/>
 
 <?php
@@ -70,5 +70,57 @@ if (!isset($admin)) {
   ?>
 </div>
 </navigation>
+<div  style="border:1px solid #ccc" >
+ <!-- Changement mot de passe -->
+<form method="post"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<table>
+	<h1>Changement de mot de passe</h1>
+	<tr>
+		<td>
+		<label for="psw"><b>Nouveau mot de passe: </b></label>
+		</td>
+		<td>
+		<input type="password" placeholder="Entrer votre mot de passe" name="psw" required><br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<label for="psw-repeat"><b>Confirmation: </b></label>
+		</td>
+		<td>
+		<input type="password" placeholder="Entrer la confirmation du mot de passe" name="psw-repeat" required><br>
+		</td>
+	</tr>
+</table>
+    <div class="clearfix">
+	<button type="submit" class="signupbtn" name="button" >Confirmer</button>
+    </div>
+</form>
+ <!-- Changement Email -->
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<table>
+	<h1>Changement de Email</h1>
+	<tr>
+		<td>
+		<label for="psw"><b>Nouveau Email: </b></label>
+		</td>
+		<td>
+		<input type="password" placeholder="Entrer votre mot de passe" name="psw" required><br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<label for="psw-repeat"><b>Confirmation: </b></label>
+		</td>
+		<td>
+		<input type="password" placeholder="Entrer la confirmation du mot de passe" name="psw-repeat" required><br>
+		</td>
+	</tr>
+</table>
+    <div class="clearfix">
+	<button type="submit" class="signupbtn" name="button" >Confirmer</button>
+    </div>
+</form>
+</div>
 
 </body>

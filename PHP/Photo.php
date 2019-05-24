@@ -21,6 +21,9 @@ if (isset($_SESSION['username']))
 {
 	$connecter=true;
 }
+else {
+	$connecter=false;
+}
 if ($connecter)
 {
 	$stm = $Mybd->prepare("CALL VerifierAdmin(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
@@ -36,32 +39,34 @@ if ($connecter)
 		$admin = 0;
 	}
 }
+if (!isset($admin)) {
+    $admin = 0;
+}
 ?>
 
 <body>
 <navigation>
 <div class="topnav">
   <a href="Photo.php">Galerie Photo</a>
-  <a href="Ajouter_Photo.php">Ajouter une photo</a>
 	<?php
 	if($admin == 1){
 		echo ("<a href='Admin.php'>Admin</a>");
 	}
-  ?>
-  <a style="float:right;" href="#logout">
-  <?php
 	if($connecter==true){
+		echo "<a href='Ajouter_Photo.php'>Ajouter une photo</a>";
 		echo "logout";
-	}
-  ?> </a>
-  <?php
-	if($connecter==false)
-	{
-		echo "<a style='float:right;' href='login.php'> Login </a>";
+		echo "<a style='float:right;' href='?logout=true'> logout</a>";
+		if(isset($_GET['logout']))
+		{
+			session_start();
+	    session_unset();
+	    header("Location: Photo.php");
+		}
+		echo "<a style='float:right;' href='Profil.php'> $Username </a>";
 	}
 	else
 	{
-	  echo "<a style='float:right;' href='Profil.php'> $Username </a>";
+		echo "<a style='float:right;' href='login.php'> Login </a>";
 	}
   ?>
 </div>
@@ -70,14 +75,14 @@ if ($connecter)
 <table>
 	<tr>
 	<?php
-	$stml = $Mybd->prepare("CALL NombreCommentaire(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-	$commentaire = $donnees[0];
-	$stml->bindParam(1, $commentaire);
-	$stml->execute();
-	while ($comment = $stml->fetch())
-	{
-		$Nbcommentaires = $comment[0];
-	}
+		$stml = $Mybd->prepare("CALL NombreCommentaire(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+		$commentaire = $donnees[0];
+		$stml->bindParam(1, $commentaire);
+		$stml->execute();
+		while ($comment = $stml->fetch())
+		{
+			$Nbcommentaires = $comment[0];
+		}
 		$nombrecolonne = 0;
 		$stm = $Mybd->prepare("CALL GetImages()", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
 		$stm->execute();

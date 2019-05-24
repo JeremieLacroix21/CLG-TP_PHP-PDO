@@ -60,7 +60,7 @@ if (!isset($admin)) {
 		{
 			session_start();
 	    session_unset();
-	    header("Location: Photo.php");
+	    header("Location: login.php");
 		}
 		echo "<a style='float:right;' href='Profil.php'> $Username </a>";
 	}

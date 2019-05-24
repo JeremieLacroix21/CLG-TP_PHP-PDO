@@ -110,7 +110,7 @@ $Mybd=null;
 					{
 						echo $donnees1[0].': '.$donnees1[1].'      ';
 
-						if($donnees1[0] == $username)
+						if($donnees1[0] == $username || $username == 'Admin')
 						{
 							echo "<input type='submit' value='$donnees1[2]' name='zero'>";
 						}

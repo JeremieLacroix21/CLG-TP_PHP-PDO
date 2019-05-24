@@ -49,6 +49,30 @@ $Mybd=null;
 
 ?>
 
+<?php
+
+try
+{
+	$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+	$stm = $Mybd->prepare("Call GetUrlImage(?)" );
+	$stm->bindParam(1, $id);
+	$id = $idPhoto;
+	$stm->execute();
+	if ($donnees = $stm->fetch())
+	{
+	$Url = $donnees[0];
+	}
+	$stm->closeCursor();
+	
+}
+catch (PDOException $e)
+{ 
+	echo('Erreur de connexion: ' . $e->getMessage());exit();
+}
+$Mybd=null;
+
+?>
+
 
 
 <body>
@@ -59,16 +83,18 @@ $Mybd=null;
 		<div class='photo'>
 			<table style="width:100%;">
 				<tr>
-					<th><a href='#User'> <?php echo($UsernameOwner); ?> </a>
+					<th><a href='#User'> <?php echo($UsernameOwner) ?> </a>
+					<form action="" method="POST">
 					<?php if($username == $UsernameOwner || $username == 'Admin')
 					{
-					echo ("<a href='index.php?hello=true'>Run PHP Function</a>");
+					echo ("<input style='float:right' type='submit' value='delete' name='PhotoDelete'>");
 					}
 					?>
+					</form>
 				</th>
 				</tr>
 				<tr>
-					<th><img src='images/<?php echo $idPhoto ?>.jpg' ></th>
+					<th><img src= '<?php echo $Url ?>' ></th>
 				</tr>
 			</table>
 		</div>
@@ -130,10 +156,26 @@ function DeleteComment($id){
 	$id1 = $id;
 	$stm->execute();
 	header("Refresh:0");
-}	
+}
+
+function Deletephoto($Q,$W){
+	$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+	$stm = $Mybd->prepare("select DeleteImage(?,?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+	$stm->bindParam(1, $id1);
+	$stm->bindParam(2, $id2);
+	$id1 = $W;
+	$id2 = $Q;
+	$stm->execute();
+	header("Location:Photo.php");
+}
 
 if (isset($_POST["zero"]))
 {
 	DeleteComment($_POST["zero"]);
+}
+
+if (isset($_POST["PhotoDelete"]))
+{
+	Deletephoto($idPhoto,$username);
 }
 ?>

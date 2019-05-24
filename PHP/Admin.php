@@ -82,19 +82,31 @@ $Prenom = $donnees[1];
 
 <body>
 	<div>
-		<table style="border:solid 2px black">
+	<h1>Derniere connexion </h1>
+		<table>
 			<tr>
-				<th>Firstname</th>
-				<th>Lastname</th>
+				<th>Pseudonyme</th>
+				<th>IP</th>
+				<th>Date et heure</th>
 			</tr>
-			<tr>
-				<td>Peter</td>
-				<td>Griffin</td>
-			</tr>
-			<tr>
-				<td>Lois</td>
-				<td>Griffin</td>
-			</tr>
+			<?php
+				try
+				{
+					$Mybd1 = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+					$stm1 = $Mybd1->prepare("CALL AfficherConnexion()" );
+					$stm1->execute();
+					while ($donnees1 = $stm1->fetch())
+					{						
+							echo 	"<tr><td>$donnees1[0]</td>
+										<td>$donnees1[1]</td>
+										<td>$donnees1[2]</td><tr>";							
+					}
+					$stm1->closeCursor();
+				}
+				catch (PDOException $e)
+				{ echo('Erreur de connexion: ' . $e->getMessage());exit();}
+				$Mybd1=null;
+			?>
 		</table>
 	</div>
 </body>

@@ -1,3 +1,15 @@
-table,th,td{
-    border: solid 1px black;
+table{
+    border-collapse: collapse;
+    width: 50%;
+    margin-left: 24%;
+}
+
+td{
+    border: solid 2px black;
+}
+tr{
+    border: solid 2px black;
+}
+h1 {
+    text-align: center;
 }

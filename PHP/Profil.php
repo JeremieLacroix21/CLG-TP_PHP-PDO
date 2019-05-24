@@ -125,12 +125,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
  else {
 	 try {
 		 $stm = $Mybd->prepare("CALL ChangePassword(?,?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-  	 $stm->bindParam(1, $username);
+  	 $stm->bindParam(1, $Username);
   	 $stm->bindParam(2, $motdepasse);
   	 $total = $stm->execute();
 		 if($total == 1)
 		 {
-			  header("Refresh:0; url=Profil.php?reussi=1");
+			 header("Refresh:0; url=Profil.php?reussi=1");
 		 }
 	 } catch (\Exception $e) {
 	 	$_SESSION['errEmail'] = $e->getMessage();

@@ -135,7 +135,7 @@ $Mybd=null;
 					<form action="" method="POST">
 					<?php if($Username == $UsernameOwner || $Username == 'Admin')
 					{
-					echo ("<input style='float:right' type='submit' value='delete' name='PhotoDelete'>");
+					echo ("<input style='float:right' type='submit' value='delete photo' name='PhotoDelete'>");
 					}
 					?>
 					</form>
@@ -160,7 +160,8 @@ $Mybd=null;
 
 						if($donnees1[0] == $Username || $Username == 'Admin')
 						{
-							echo "<input type='submit' value='$donnees1[2]' name='zero'>";
+							echo "<button type='submit' value='$donnees1[2]' name='zero'> delete </button>";
+							
 						}
 						echo '</br>'.'</br>';
 					}

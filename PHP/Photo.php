@@ -96,7 +96,7 @@ if (!isset($admin)) {
 			{
 				$Nbcommentaires = $comment[0];
 			}
-			if($nombrecolonne == 7) //fin de tr
+			if($nombrecolonne == 6) //fin de tr
 			{
 				echo '</tr><tr><td><a href = "PhotoVue.php?id="' . $donnees[0] . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
 				. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:2017 </br>

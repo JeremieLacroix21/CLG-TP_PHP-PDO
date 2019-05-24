@@ -82,6 +82,7 @@ $Prenom = $donnees[1];
 		echo "<a style='float:right;' href='?logout=true'> logout</a>";
 		if(isset($_GET['logout']))
 		{
+			setcookie("User", null , -1);
 			session_start();
 	    session_unset();
 	    header("Location: login.php");
@@ -160,7 +161,7 @@ $Mybd=null;
 						if($donnees1[0] == $Username || $Username == 'Admin')
 						{
 							echo "<button type='submit' value='$donnees1[2]' name='zero'> delete </button>";
-							
+
 						}
 						echo '</br>'.'</br>';
 					}

@@ -72,6 +72,7 @@ $Prenom = $donnees[1];
 		echo "<a style='float:right;' href='?logout=true'> logout</a>";
 		if(isset($_GET['logout']))
 		{
+			setcookie("User", null , -1);
 			session_start();
 	    session_unset();
 	    header("Location: login.php");

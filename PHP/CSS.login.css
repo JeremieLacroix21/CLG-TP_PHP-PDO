@@ -3,6 +3,10 @@ form {
   border: 3px solid #f1f1f1;
 }
 
+body{
+  background-color: white;
+}
+
 h1{
 text-align:center;
 color: Blue;
@@ -62,5 +66,5 @@ span.psw {
     display: block;
     float: none;
   }
-  
+
 }

@@ -245,27 +245,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
 		 <label for="psw"><b>Se souvenir de moi: </b></label>
 		 </td>
 		 <td style="width:10px; padding-top:18px;">
-		 <input type="checkbox"style="width:20px;" name="souvenir" value="souvenir" id="souvenir"><label for="souvenir">
+		 <input type="checkbox"style="width:20px;" name="souvenir" value="check"><label for="souvenir">
 		 </td>
 	 </tr>
  </table>
- <?php
-	 if(isset($_SESSION["errNewEmail"]))
-	 {
-				 $errorEmail = $_SESSION["errNewEmail"];
-				 echo "<span id='errNewEmail' style = 'color:red'>$errorEmail</span>";
-	 }
-	 if($id === 2){
-		 echo '<div class="Reussi">Changement de email reussi</div>';
-	 }
-	 else{
-		 echo '<div class="NonReussi"></div>';
-	 }
- ?>
 		 <div class="clearfix">
-	 <button type="submit" class="signupbtn" name="buttonEmail" >Confirmer</button>
+	 <button type="submit" class="signupbtn" name="buttonSouvenir" >Confirmer</button>
 		 </div>
  </form>
+
+ <?php
+	if(isset($_POST['souvenir']) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonSouvenir']))
+	{
+		//Création du cookies
+		echo "allo";
+		header("Refresh:0; url=Profil.php?reussi=0");
+	}
+	else {
+		//Détruire le cookie
+	}
+ ?>
 </div>
 
 </body>

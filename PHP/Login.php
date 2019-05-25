@@ -59,7 +59,7 @@ session_start();
 			<input type="password" placeholder="Entrer votre mot de passe" name ="password" required>
 		<br>
 			<button type="submit" value = " Submit ">Se connecter</button>
-			<button type="button"  onclick="window.location.href='Inscription.php?inscrit=0'"style="background-color:grey">S'inscrire</button>
+			<button type="button"  onclick="window.location.href='Inscrip.php?inscrit=0'"style="background-color:grey">S'inscrire</button>
 	</form>
 	<?php	echo ($Erreur); ?>
 </div>

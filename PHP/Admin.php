@@ -82,6 +82,49 @@ $Prenom = $donnees[1];
 </header>
 
 <body>
+<div>
+	<h1>Liste des utilisateurs</h1>
+		<table>
+			<tr>
+				<th>pseudonyme</th>
+				<th>nom</th>
+				<th>prenom</th>
+				<th>modifier/supprimer</th>
+			</tr>
+			<?php
+				try
+				{
+					$Mybd0 = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
+					$stm0 = $Mybd0->prepare("CALL Getusers()" );
+					$stm0->execute();
+					while ($donnees0 = $stm0->fetch())
+					{						
+							$compt = 1;
+							echo 	"<tr><td>$donnees0[0]</td>
+										<td>$donnees0[1]</td>
+										<td>$donnees0[2]</td>
+										<td><button id=$compt onclick='' type='button'>modifier</button>
+										<button id=$compt onclick='' type='button'>supprimer</button> </td>
+										<tr>";							
+					}
+					$stm0->closeCursor();
+				}
+				catch (PDOException $e)
+				{ echo('Erreur de connexion: ' . $e->getMessage());exit();}
+				$Mybd1=null;
+			?>
+		</table>
+	</div>
+
+
+
+
+
+
+
+
+
+
 	<div>
 	<h1>Derniere connexion </h1>
 		<table>

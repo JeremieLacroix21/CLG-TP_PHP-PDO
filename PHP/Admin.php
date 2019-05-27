@@ -98,14 +98,14 @@ $Prenom = $donnees[1];
 					$stm0 = $Mybd0->prepare("CALL Getusers()" );
 					$stm0->execute();
 					while ($donnees0 = $stm0->fetch())
-					{						
+					{
 							$compt = 1;
 							echo 	"<tr><td>$donnees0[0]</td>
 										<td>$donnees0[1]</td>
 										<td>$donnees0[2]</td>
 										<td><a href='modifier.php?id=$donnees0[0]'>modifier</a>
 										<a href='supprimer.php?id=$donnees0[0]'>supprimer</a></td>
-										<tr>";							
+										<tr>";
 					}
 					$stm0->closeCursor();
 				}
@@ -140,10 +140,10 @@ $Prenom = $donnees[1];
 					$stm1 = $Mybd1->prepare("CALL AfficherConnexion()" );
 					$stm1->execute();
 					while ($donnees1 = $stm1->fetch())
-					{						
+					{
 							echo 	"<tr><td>$donnees1[0]</td>
 										<td>$donnees1[1]</td>
-										<td>$donnees1[2]</td><tr>";							
+										<td>$donnees1[2]</td><tr>";
 					}
 					$stm1->closeCursor();
 				}

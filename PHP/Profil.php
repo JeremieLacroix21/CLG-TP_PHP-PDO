@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
  if(strcmp($motdepasse, $confirmation) != 0)
  {
 	 $_SESSION['errNewPwd'] = "Les mots de passes ne correspondent pas";
-		header("Refresh:0; url=Profil.php?reussi=0");
+		header("location:Profil.php?reussi=0");
  }
  else {
 	 try {
@@ -138,11 +138,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
   	 $total = $stm->execute();
 		 if($total == 1)
 		 {
-			 header("Refresh:0; url=Profil.php?reussi=1");
+			 header("location:Profil.php?reussi=1");
 		 }
 	 } catch (\Exception $e) {
 	 	$_SESSION['errNewPwd'] = $e->getMessage();
-		header("Refresh:0; url=Profil.php?reussi=0");
+		header("location:Profil.php?reussi=0");
 	 }
 }
 }
@@ -197,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
 	  if(strcmp($email, $confirmationemail) != 0)
 	  {
 	 	 $_SESSION['errNewEmail'] = "Les email ne correspondent pas";
-	 		header("Refresh:0; url=Profil.php?reussi=0");
+	 		header("location:Profil.php?reussi=0");
 	  }
 	  else {
 		 $stm = $Mybd->prepare("CALL VerifierEmail(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
@@ -211,11 +211,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
          if ($donnees[0] == 'Y' )
          {
          	$_SESSION['errNewEmail'] = "Adresse courriel deja utilise";
-					header("Refresh:0; url=Profil.php?reussi=0");
+					header("location:Profil.php?reussi=0");
          }
          else {
            $_SESSION['errNewEmail'] = "Adresse courriel incorrect";
-					 header("Refresh:0; url=Profil.php?reussi=0");
+					 header("location:Profil.php?reussi=0");
          }
  		  }
 			else {
@@ -226,11 +226,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
 	 	   	 $total = $stm->execute();
 	 	 		 if($total == 1)
 	 	 		 {
-	 	 			 header("Refresh:0; url=Profil.php?reussi=2");
+	 	 			 header("location:Profil.php?reussi=2");
 	 	 		 }
 	 	 	 } catch (\Exception $e) {
 	 	 	 	$_SESSION['errNewEmail'] = $e->getMessage();
-	 	 		header("Refresh:0; url=Profil.php?reussi=0");
+	 	 		header("location:Profil.php?reussi=0");
 	 	 	 }
 			}
 	 }
@@ -268,12 +268,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
 		unset ($_POST["buttonSouvenir"]);
 		$demain = time() + (60 * 60 * 24);
     setcookie("User", $Username , $demain);
-		header("Refresh:0; url=Profil.php?reussi=0");
+		header("location:Profil.php?reussi=0");
 	}
 	else if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonSouvenir'])){
 		unset ($_POST["buttonSouvenir"]);
 		setcookie("User", null , -1);
-		header("Refresh:0; url=Profil.php?reussi=0");
+		header("location:Profil.php?reussi=0");
 	}
  ?>
 </div>

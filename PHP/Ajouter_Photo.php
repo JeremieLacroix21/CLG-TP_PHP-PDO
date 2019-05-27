@@ -7,7 +7,7 @@ session_start();
 			$Erreur = "";
 			try {
 
-					$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));	
+					$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
 			} catch (PDOException $e) {
 					print "Erreur !: " . $e->getMessage() . "<br/>";
 					die();
@@ -72,7 +72,8 @@ $Prenom = $donnees[1];
 			setcookie("User", null , -1);
 			session_start();
 	    session_unset();
-	    header("Location: login.php");
+			header("location:index.php");
+			$_SESSION['logout'] = "set";
 		}
 echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
 	}
@@ -115,20 +116,16 @@ echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
       <input type="submit" value="Submit">
     </div>
 	<?php
-			if ($_SERVER['REQUEST_METHOD'] == "POST"){				
+			if ($_SERVER['REQUEST_METHOD'] == "POST"){
 			$_SESSION['idimage'] = 9;
-			$_SESSION['Titre'] = $_POST['Titre']; 
+			$_SESSION['Titre'] = $_POST['Titre'];
 			$_SESSION['Description'] =  $_POST['Description'];
 			$Name = $_FILES['fileToUpload']['tmp_name'];
 			$_SESSION['Url'] = "\\images"."\\".$Name;
-			
+
   }
 	?>
   </form>
 </div>
 
 </body>
-
-
-
-

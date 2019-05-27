@@ -41,6 +41,7 @@ session_start();
 				$Date= date('Y-m-d H:i:s');
 				$Ip = $_SERVER['REMOTE_ADDR'];
 				$stm->execute();
+				unset ($_SESSION['logout']);
 				header("location:index.php");
 				exit;
 			}

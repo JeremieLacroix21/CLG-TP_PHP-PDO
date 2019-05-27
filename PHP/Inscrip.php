@@ -117,7 +117,7 @@ try {
 	  if(strcmp($motdepasse, $confirmation) != 0)
 	  {
 		  $_SESSION['errPwd'] = "Les mots de passes ne correspondent pas";
-      header("location:Inscription.php?inscrit=0");
+      header("location:Inscrip.php?inscrit=0");
 	  }
 	  else
 	  {
@@ -130,7 +130,7 @@ try {
 	  if($donnees[0] === 'Y')
 	  {
 		 $_SESSION['errPseudo'] = "Pseudonyme deja utilise";
-     header("location:Inscription.php?inscrit=0");
+     header("location:Inscrip.php?inscrit=0");
 	  }
 	  else
 	  {
@@ -148,11 +148,11 @@ try {
         if ($donnees[0] == 'Y' )
         {
         	$_SESSION['errEmail'] = "Adresse courriel deja utilise";
-          header("location:Inscription.php?inscrit=0");
+          header("location:Inscrip.php?inscrit=0");
         }
         else {
           $_SESSION['errEmail'] = "Adresse courriel incorrect";
-          header("location:Inscription.php?inscrit=0");
+          header("location:Inscrip.php?inscrit=0");
         }
 		  }
 		  else
@@ -176,10 +176,10 @@ try {
   ]);
         if($allo == 1)
         {
-          header("location:Inscription.php?inscrit=1");
+          header("location:Inscrip.php?inscrit=1");
         }
         else {
-          header("location:Inscription.php?inscrit=0");
+          header("location:Inscrip.php?inscrit=0");
         }
 		}
 		catch (PDOException $e)

@@ -69,7 +69,7 @@ $Prenom = $donnees[1];
 	    session_unset();
 			$logout = true;
 			header("refresh:0");
-			$_SESSION['logout'] = 1;
+			$_SESSION['logout'] = "set";
 		}
 		echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
 	}

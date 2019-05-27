@@ -26,7 +26,7 @@ try
 	$UsernameOwner = $donnees[0];
 	}
 	$stm->closeCursor();
-	
+
 	$stm2 = $Mybd->prepare("CALL GetUrlImage(?)");
 	$stm2->bindParam(1, $id3);
 	$id3 = $idPhoto;
@@ -34,17 +34,17 @@ try
 	$donnees = $stm2->fetch();
 	$cwd = getcwd();
 	$filename = $cwd.$donnees[0];
-	
+
 	echo $filename;
-	
-	
+
+
 	// if (file_exists($filename)) {
     // unlink($filename);
     // echo 'File '.$filename.' has been deleted';
     // } else {
     // echo 'Could not delete '.$filename.', file does not exist';
     // }
-	
+
 
 }
 catch (PDOException $e)
@@ -95,16 +95,16 @@ $Prenom = $donnees[1];
 	if($admin == 1){
 		echo ("<a href='Admin.php'>Admin</a>");
 	}
-	if($connecter==true){
+	if($connecter){
 		echo "<a href='Ajouter_Photo.php'>Ajouter une photo</a>";
 		echo "logout";
-		echo "<a style='float:right;' href='?logout=true'> logout</a>";
+		echo '<a style="float:right;" href="?logout=true"> logout</a>';
 		if(isset($_GET['logout']))
 		{
 			setcookie("User", null , -1);
-			session_start();
 	    session_unset();
-	    header("Location: login.php");
+			header("location:index.php");
+			$_SESSION['logout'] = "set";
 		}
 		echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
 	}
@@ -201,7 +201,7 @@ $Mybd=null;
 </html>
 
 <?php
-	if($_SERVER["REQUEST_METHOD"] == "POST") {
+	if($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_SESSION['logout'])) {
 
 			if($_POST['Commentaire'] != ""){
 			$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
@@ -234,9 +234,9 @@ function Deletephoto($Q,$W){
 	$id1 = $W;
 	$id2 = $Q;
 	$stm->execute();
-	
 
-	
+
+
 	//header("Location:index.php");
 }
 

@@ -67,7 +67,8 @@ $Prenom = $donnees[1];
 			setcookie("User", null , -1);
 			session_start();
 	    session_unset();
-	    header("Location: login.php");
+			header("location:index.php");
+			$_SESSION['logout'] = "set";
 		}
 		echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
 	}

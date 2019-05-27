@@ -157,7 +157,7 @@ $Mybd=null;
 					$stm1->execute();
 					while ($donnees1 = $stm1->fetch())
 					{
-						echo $donnees1[0].': '.$donnees1[1].'      ';
+						echo $donnees1[3]."  ".$donnees1[0].': '.$donnees1[1].'      ';
 
 						if($donnees1[0] == $Username || $Username == 'Admin')
 						{
@@ -215,6 +215,25 @@ function Deletephoto($Q,$W){
 	$id1 = $W;
 	$id2 = $Q;
 	$stm->execute();
+	
+
+	$stm2 = $Mybd->prepare("select GetUrlImage(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+	$stm2->bindParam(1, $id2);
+	$id2 = $Q;
+	$stm->execute();
+	$filename = stm2->fetch();
+	if (file_exists($filename[0])) {
+    unlink($filename);
+    echo 'File '.$filename.' has been deleted';
+  } else {
+    echo 'Could not delete '.$filename.', file does not exist';
+  }
+}
+	
+	
+	
+	
+	
 	header("Location:Index.php");
 }
 

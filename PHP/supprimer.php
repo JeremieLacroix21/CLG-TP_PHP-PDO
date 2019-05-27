@@ -13,7 +13,8 @@ $UserToDelete = $_GET['id'];
 			header("url=Admin.php");
 		} catch (PDOException $e)
 				{ echo('Erreur de connexion: ' . $e->getMessage());exit();}
-	echo "$UserToDeletese a été supprimer";
+	echo "$UserToDeletes a été supprimer <a href='admin.php'>retour</a>";
+	
 	?>
 	
 }

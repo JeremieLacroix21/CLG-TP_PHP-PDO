@@ -103,8 +103,8 @@ $Prenom = $donnees[1];
 							echo 	"<tr><td>$donnees0[0]</td>
 										<td>$donnees0[1]</td>
 										<td>$donnees0[2]</td>
-										<td><button id=$compt onclick='' type='button'>modifier</button>
-										<button id=$compt onclick='' type='button'>supprimer</button> </td>
+										<td><a href='modifier.php?id=$donnees0[0]'>modifier</a>
+										<a href='supprimer.php?id=$donnees0[0]'>supprimer</a></td>
 										<tr>";							
 					}
 					$stm0->closeCursor();

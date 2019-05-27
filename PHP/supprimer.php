@@ -1,7 +1,7 @@
-
-
-
+<!DOCTYPE html>
 <?php
+session_start();
+
 $UserToDelete = $_SESSION['Delete'];
 
 		try {
@@ -13,7 +13,7 @@ $UserToDelete = $_SESSION['Delete'];
 			header("url=Admin.php");
 		} catch (PDOException $e)
 				{ echo('Erreur de connexion: ' . $e->getMessage());exit();}
-	echo "$UserToDeletes a été supprimer <a href='admin.php'>retour</a>";
+	echo "$UserToDelete a été supprimer <a href='admin.php'>retour</a>";
 
 	?>
 

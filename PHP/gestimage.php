@@ -193,7 +193,7 @@ $Mybd=null;
 			$stm->bindParam(3, $Comment);
 			$stm->execute();
 			$donnees = $stm->fetch();
-			header("Refresh:0");
+			header("location:gestimage.php?id=$idPhoto");
 			}
 	}
 ?>
@@ -205,7 +205,6 @@ function DeleteComment($id){
 	$stm->bindParam(1, $id1);
 	$id1 = $id;
 	$stm->execute();
-	header("Refresh:0");
 }
 
 function Deletephoto($Q,$W){
@@ -216,12 +215,13 @@ function Deletephoto($Q,$W){
 	$id1 = $W;
 	$id2 = $Q;
 	$stm->execute();
-	header("Location:Photo.php");
+	header("Location:Index.php");
 }
 
 if (isset($_POST["zero"]))
 {
 	DeleteComment($_POST["zero"]);
+	header("location:gestimage.php?id=$idPhoto");
 }
 
 if (isset($_POST["PhotoDelete"]))

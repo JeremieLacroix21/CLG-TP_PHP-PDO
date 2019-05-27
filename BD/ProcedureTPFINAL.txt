@@ -13,19 +13,23 @@ commit;
 end %
 DELIMETER ;
 
+
+
+
 delimiter |
 create function DeleteImage(IN Ppseudo varchar(45), IN Pidimages INT) returns varchar(45)
 Begin
 declare pseudoimage varchar(45);
 select I.pseudonyme into pseudoimage from Images I where Idimages = Pidimages; 
-if pseudoimage = Ppseudo then
+if pseudoimage = Ppseudo or Ppseudo = 'Admin' then
 delete from Images where Idimages = Pidimages;
-commit; 
 else set pseudoimage = 'Erreur';
 end if;
 return pseudoimage;
 end |
 DELIMETER ;
+
+
 
 delimiter %
 create procedure DeleteCompte(IN Ppseudo varchar(45))
@@ -35,18 +39,14 @@ commit;
 end %
 DELIMETER ;
 
+
+
+
 delimiter |
 create function DeleteCommentaire(IN Ppseudo varchar(45), IN Pidcommentaires INT) returns varchar(45)
-Begin
-declare pseudocomment varchar(45);
-select C.pseudonyme into pseudocomment from Commentaires C where Idcommentaires = Pidcommentaires ; 
-if pseudocomment = Ppseudo then
-delete from Commentaires where Idcommentaires = Pidcommentaires;
-commit; 
-else set pseudocomment = 'Erreur';
-end if;
-return pseudocomment;
-end |
+BEGIN
+DELETE from Commentaires where idCommentaires = id;
+END|
 DELIMETER ;
 
 delimiter %
@@ -57,12 +57,14 @@ select I.pseudonyme into ImageOwner from Images I inner join Commentaires C
 on I.Idimages = C.Idimages where C.Idcommentaires = Pidcommentaires; 
 if ImageOwner = Ppseudo then
 delete from Commentaires where Idcommentaires = Pidcommentaires;
-commit; 
 else set ImageOwner = 'Erreur';
 end if;
 return ImageOwner;
 end %
 DELIMETER ;
+
+
+
 
 delimiter |
 create procedure ChangePassword(IN Ppseudo varchar(45), IN PNewpsswd varchar(45)) returns varchar(45)
@@ -71,6 +73,9 @@ update Membres set MotDePasse = PNewpsswd where pseudonyme = Ppseudo;
 commit;
 end |
 DELIMETER ;
+
+
+
 
 /* Triggers */
 /* Changer les CASCADE par NO ACTION */

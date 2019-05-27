@@ -11,9 +11,13 @@ session_start();
 					print "Erreur !: " . $e->getMessage() . "<br/>";
 					die();
 			}
-	?>
 
-	<?php
+			if (isset($_COOKIE["User"])) {
+			 $_SESSION['username'] = $_COOKIE['User'];
+			 header("location:index.php");
+			 exit;
+	 }
+
 		if($_SERVER["REQUEST_METHOD"] == "POST") {
 			$stm = $Mybd->prepare("CALL VerifierCompte(?,?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
 			$username = $_POST['username'];

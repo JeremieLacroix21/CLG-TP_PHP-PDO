@@ -46,7 +46,7 @@ if ($uploadOk == 0) {
 			$pseudonyme = $_SESSION['username'];
 			$Description =  $_POST['Description'];
 			$Name = $_FILES['fileToUpload']['name'];
-			$Url = "Images/".$Name;
+			$Url = "Images\\".$Name;
 			$Date = date('y-m-d');
 			$stmt3->bindParam(1, $Titre);
 			$stmt3->bindParam(2, $Description);

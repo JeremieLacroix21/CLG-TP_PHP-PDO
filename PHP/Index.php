@@ -53,7 +53,7 @@ $Prenom = $donnees[1];
 <body>
 <navigation>
 <div class="topnav">
-  <a href="Photo.php">Galerie Photo</a>
+  <a href="index.php">Galerie Photo</a>
 	<?php
 	if($admin == 1){
 		echo ("<a href='Admin.php'>Admin</a>");
@@ -105,13 +105,13 @@ $Prenom = $donnees[1];
 			}
 			if($nombrecolonne == 6) //fin de tr
 			{
-				echo '</tr><tr><td><a href = "PhotoVue.php?id="' . $donnees[0] . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
+				echo '</tr><tr><td><a href = "gestimage.php?id="' . $donnees[0] . '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
 				. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:' . $donnees[5] . '</br>
 				Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
 				$nombrecolonne = 0;
 			}
 			else {
-				echo '<td><a href = "PhotoVue.php?id=' . $donnees[0]. '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
+				echo '<td><a href = "gestimage.php?id=' . $donnees[0]. '"><img src="' . $donnees[3] . '"></a><div class = "Info">Titre:'
 				. $donnees[1] . '</br> Description:' . $donnees[2] . '</br> Pseudonyme:' . $donnees[4] . '</br> Date:' . $donnees[5] . '</br>
 				Nombres de commentaires:' .  $Nbcommentaires . '</br></div></td>';
 			}

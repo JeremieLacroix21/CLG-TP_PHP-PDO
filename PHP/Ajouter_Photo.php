@@ -1,7 +1,5 @@
 <?php
 session_start();
-$allo = $_SESSION['username'];
-$connecter =true;
 ?>
 
 <?php
@@ -9,8 +7,7 @@ $connecter =true;
 			$Erreur = "";
 			try {
 
-					$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
-
+					$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));	
 			} catch (PDOException $e) {
 					print "Erreur !: " . $e->getMessage() . "<br/>";
 					die();
@@ -61,7 +58,7 @@ $Prenom = $donnees[1];
 <body>
 <navigation>
 <div class="topnav">
-  <a href="Photo.php">Galerie Photo</a>
+  <a href="index.php">Galerie Photo</a>
 	<?php
 	if($admin == 1){
 		echo ("<a href='Admin.php'>Admin</a>");
@@ -89,13 +86,13 @@ echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
 
 
 <div class="container">
-  <form  onsubmit="Add_photo()" method="post" enctype="multipart/form-data">
+  <form method="post" action="upload.php" enctype="multipart/form-data">
     <div class="row">
       <div class="col-25">
         <label for="Titre">Titre :</label>
       </div>
       <div class="col-75">
-        <input type="text" id="Titre" name="firstname" placeholder="Le Titre de l'image..." required>
+        <input type="text"  name="Titre" placeholder="Le Titre de l'image..." required>
       </div>
     </div>
      <div class="row">
@@ -103,7 +100,7 @@ echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
         <label for="Description">Description de l'image :</label>
       </div>
        <div class="col-75">
-         <textarea id="Description" name="subject" placeholder="Ex: fleur, oiseaux,etc." style="height:200px" required></textarea>
+         <textarea  name="Description" placeholder="Ex: fleur, oiseaux,etc." style="height:200px" required></textarea>
        </div>
      </div>
 	<div class="row">
@@ -111,32 +108,26 @@ echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
 	 <label for="fichier image">Selectionner le fichier image :</label>
 	 </div>
 	<div class="col-75">
-       <input name="fileToUpload" id="fileToUpload" size="35" type="file" accept=".jpg,.jpeg,.png,.gif" required>
+       <input name="fileToUpload"  size="35" type="file" accept=".jpg,.jpeg,.png,.gif" required>
     </div>
 	</div>
 	<div class="row">
-      <input value="Upload Image" type="submit" value="Submit">
+      <input type="submit" value="Submit">
     </div>
+	<?php
+			if ($_SERVER['REQUEST_METHOD'] == "POST"){				
+			$_SESSION['idimage'] = 9;
+			$_SESSION['Titre'] = $_POST['Titre']; 
+			$_SESSION['Description'] =  $_POST['Description'];
+			$Name = $_FILES['fileToUpload']['tmp_name'];
+			$_SESSION['Url'] = "images/".$Name;
+  }
+	?>
   </form>
 </div>
+
 </body>
 
 
 
-<script>
-function Add_photo()
-{
 
-	$idimage = 1;
-	$Titre = document.getElementById("Titre").value;
-	$Description = document.getElementById("Description").value;
-	$Url = "images/" + $_FILES["fileToUpload"]["name"];
-	$pseudonyme = $_SESSION['username'];
-	$insertion = $mybd->exec("INSERT INTO images(idimages,Titre,Description,Url,pseudonyme) VALUES($idimage,$Titre,$Description,$Url,$pseudonyme)");
-	echo('total insertion est ' . $insertion);
-	header("refresh:0");
-}
-
-
-
-</script>

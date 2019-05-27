@@ -71,7 +71,7 @@ $Prenom = $donnees[1];
 
 <navigation>
 <div class="topnav">
-  <a href="Photo.php">Galerie Photo</a>
+  <a href="index.php">Galerie Photo</a>
 	<?php
 	if($admin == 1){
 		echo ("<a href='Admin.php'>Admin</a>");

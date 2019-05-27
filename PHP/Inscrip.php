@@ -172,7 +172,7 @@ try {
     'fmdp' => $_POST['psw'],
     'fnom' => $_POST['Nom'],
     'fprenom' => $_POST['Prenom'],
-    'femail' => $_POST['Email'],
+    'femail' => $_POST['Email']
   ]);
         if($allo == 1)
         {

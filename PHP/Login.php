@@ -37,7 +37,7 @@ session_start();
 				$Date= date('Y-m-d H:i:s');
 				$Ip = $_SERVER['REMOTE_ADDR'];
 				$stm->execute();
-				header("location:Photo.php");
+				header("location:index.php");
 				exit;
 			}
 		}

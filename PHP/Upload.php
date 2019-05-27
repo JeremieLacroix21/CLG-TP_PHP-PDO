@@ -1,4 +1,5 @@
 <?php
+session_start();
 $target_dir = "images/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -37,11 +38,35 @@ if ($uploadOk == 0) {
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-		
+		try {
+			$Mybd =	new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));	
+			$stmt3 = $Mybd->prepare("INSERT INTO Images(idimages,Titre,Description,Url,Pseudonyme,Date) VALUES(?,?,?,?,?,?)");
+			$idimages = 9;
+			$Titre = $_POST['Titre']; 
+			$pseudonyme = $_SESSION['username'];
+			$Description =  $_POST['Description'];
+			$Name = $_FILES['fileToUpload']['name'];
+			$Url = "Images/".$Name;
+			$Date = date('y-m-d');
+			$stmt3->bindParam(1, $idimages);
+			$stmt3->bindParam(2, $Titre);
+			$stmt3->bindParam(3, $Description);
+			$stmt3->bindParam(4, $Url);
+			$stmt3->bindParam(5, $pseudonyme);
+			$stmt3->bindParam(6, $Date);
+			$stmt3->execute();
+			
+		} catch (PDOException $e) {
+					print "Erreur !: " . $e->getMessage() . "<br/>";
+					die();
+			}
 		
 		
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
 }
+
+echo " cliquer <a href='index.php'>ici</a> pour retourner a la gallerie d'image";
+
 ?> 

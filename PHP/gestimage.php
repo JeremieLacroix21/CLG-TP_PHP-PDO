@@ -217,18 +217,20 @@ function Deletephoto($Q,$W){
 	$stm->execute();
 	
 
-	$stm2 = $Mybd->prepare("select GetUrlImage(?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-	$stm2->bindParam(1, $id2);
-	$id2 = $Q;
-	$stm->execute();
-	$filename = stm2->fetch();
+	$stm2 = $Mybd->prepare("CALL GetUrlImage(?)");
+	$stm2->bindParam(1, $id3);
+	$id3 = $Q;
+	$stm2->execute();
+	$donnees = $stm2->fetch();
+	
+	
 	if (file_exists($filename[0])) {
     unlink($filename);
     echo 'File '.$filename.' has been deleted';
-  } else {
+    } else {
     echo 'Could not delete '.$filename.', file does not exist';
-  }
-}
+    }
+	
 	
 	
 	

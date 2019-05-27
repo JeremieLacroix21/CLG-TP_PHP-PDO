@@ -26,6 +26,11 @@ try
 	$UsernameOwner = $donnees[0];
 	}
 	$stm->closeCursor();
+	
+	
+	
+	
+	
 
 
 }
@@ -77,16 +82,18 @@ $Prenom = $donnees[1];
 	if($admin == 1){
 		echo ("<a href='Admin.php'>Admin</a>");
 	}
-	if($connecter){
+	if($connecter==true){
 		echo "<a href='Ajouter_Photo.php'>Ajouter une photo</a>";
 		echo "logout";
-		echo '<a style="float:right;" href="?logout=true"> logout</a>';
+		echo "<a style='float:right;' href='?logout=true'> logout</a>";
 		if(isset($_GET['logout']))
 		{
 			setcookie("User", null , -1);
+		
 	    session_unset();
-			header("location:index.php");
+		header("location:index.php");
 			$_SESSION['logout'] = "set";
+	    
 		}
 		echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
 	}
@@ -180,10 +187,22 @@ $Mybd=null;
 		</form>
 	</div>
 </body>
+
+
+<footer>
+<p style="text-align:center;">
+site faite par Charles Bourgeois, Jérémie Lacroix, et Mathieu Sévignye -- 2019 -- TP FINALE PDO 
+</p>
+</footer>
+
+
+
+
+
 </html>
 
 <?php
-	if($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_SESSION['logout'])) {
+	if($_SERVER["REQUEST_METHOD"] == "POST"&& !isset($_SESSION['logout']) ) {
 
 			if($_POST['Commentaire'] != ""){
 			$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
@@ -217,29 +236,29 @@ function Deletephoto($Q,$W){
 	$id2 = $Q;
 	$stm->execute();
 
+}
 
 
+function Deletefromfiles($idp)
+{	
+	$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
 	$stm2 = $Mybd->prepare("CALL GetUrlImage(?)");
-	$stm2->bindParam(1, $id3);
-
-	$id3 = $Q;
-	echo $Q;
+	$stm2->bindParam(1, $id);
+	$id = $idp;
+	echo $id;
 	$stm2->execute();
 	while ($donnees = $stm2->fetch())
 	{
-	echo $donnees[0];
-
+		echo $donnees[0];
+	$filename = $donnees[0];
 	}
 	if (file_exists($filename)) {
-    //unlink($filename);
+    unlink($filename);
     echo 'File '.$filename.' has been deleted';
     } else {
     echo 'Could not delete '.$filename.', file does not exist';
     }
-
-
-
-	//header("Location:index.php");
+	header("location:gestimage.php?id=$idPhoto");
 }
 
 if (isset($_POST["zero"]))
@@ -250,8 +269,16 @@ if (isset($_POST["zero"]))
 
 if (isset($_POST["PhotoDelete"]))
 {
-	Deletephoto($idPhoto,$Username);
+	
+	Deletefromfiles(intval($_GET['id']));
+	Deletephoto(intval($_GET['id']),$Username);
+	header("Location:index.php");
 }
 
-
+	
 ?>
+
+
+
+
+

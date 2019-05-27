@@ -26,6 +26,25 @@ try
 	$UsernameOwner = $donnees[0];
 	}
 	$stm->closeCursor();
+	
+	$stm2 = $Mybd->prepare("CALL GetUrlImage(?)");
+	$stm2->bindParam(1, $id3);
+	$id3 = $idPhoto;
+	$stm2->execute();
+	$donnees = $stm2->fetch();
+	$cwd = getcwd();
+	$filename = $cwd.$donnees[0];
+	
+	echo $filename;
+	
+	
+	// if (file_exists($filename)) {
+    // unlink($filename);
+    // echo 'File '.$filename.' has been deleted';
+    // } else {
+    // echo 'Could not delete '.$filename.', file does not exist';
+    // }
+	
 
 }
 catch (PDOException $e)
@@ -217,26 +236,8 @@ function Deletephoto($Q,$W){
 	$stm->execute();
 	
 
-	$stm2 = $Mybd->prepare("CALL GetUrlImage(?)");
-	$stm2->bindParam(1, $id3);
-	$id3 = $Q;
-	$stm2->execute();
-	$donnees = $stm2->fetch();
 	
-	
-	if (file_exists($filename[0])) {
-    unlink($filename);
-    echo 'File '.$filename.' has been deleted';
-    } else {
-    echo 'Could not delete '.$filename.', file does not exist';
-    }
-	
-	
-	
-	
-	
-	
-	header("Location:Index.php");
+	//header("Location:index.php");
 }
 
 if (isset($_POST["zero"]))

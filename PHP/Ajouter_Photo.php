@@ -120,7 +120,8 @@ echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
 			$_SESSION['Titre'] = $_POST['Titre']; 
 			$_SESSION['Description'] =  $_POST['Description'];
 			$Name = $_FILES['fileToUpload']['tmp_name'];
-			$_SESSION['Url'] = "images/".$Name;
+			$_SESSION['Url'] = "\\images"."\\".$Name;
+			
   }
 	?>
   </form>

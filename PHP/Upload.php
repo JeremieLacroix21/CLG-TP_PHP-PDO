@@ -41,7 +41,7 @@ if ($uploadOk == 0) {
 		try {
 			$Mybd =	new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));	
 			$stmt3 = $Mybd->prepare("INSERT INTO Images(idimages,Titre,Description,Url,Pseudonyme,Date) VALUES(?,?,?,?,?,?)");
-			$idimages = 9;
+			$idimages = 10;
 			$Titre = $_POST['Titre']; 
 			$pseudonyme = $_SESSION['username'];
 			$Description =  $_POST['Description'];

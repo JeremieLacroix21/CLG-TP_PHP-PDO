@@ -100,18 +100,32 @@ $Prenom = $donnees[1];
 					while ($donnees0 = $stm0->fetch())
 					{
 							$compt = 1;
-							echo 	"<tr><td>$donnees0[0]</td>
-										<td>$donnees0[1]</td>
-										<td>$donnees0[2]</td>
-										<td><a href='modifier.php?id=$donnees0[0]'>modifier</a>
-										<a href='supprimer.php?id=$donnees0[0]'>supprimer</a></td>
-										<tr>";
+							echo 	'<form method="POST">
+										<tr><td>' . $donnees0[0] .'</td>
+										<td>' . $donnees0[1] . '</td>
+										<td>' . $donnees0[2] .'</td>
+										<td><button type="submit" name =modify' . $donnees0[0]. '>modifier</button>
+										<button type="submit"  name =delete'. $donnees0[0] . '>supprimer</button></td>
+										<tr>';
+										if (isset($_POST["modify" . $donnees0[0]])) {
+													$_SESSION['Modify'] = $donnees0[0];
+													header('location:modifier.php?reussi=0');
+											}
+										if (isset($_POST["delete" . $donnees0[0]])) {
+														$_SESSION['Delete'] = $donnees0[0];
+														header('location:supprimer.php?id=' . $donnees0[0]);
+												}
+
 					}
+					echo '</form>';
 					$stm0->closeCursor();
 				}
 				catch (PDOException $e)
 				{ echo('Erreur de connexion: ' . $e->getMessage());exit();}
-				$Mybd1=null;
+
+
+
+
 			?>
 		</table>
 	</div>

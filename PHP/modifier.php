@@ -84,7 +84,7 @@ $Prenom = $donnees[1];
  <!-- Changement mot de passe -->
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <table>
-	<h1>Changement de mot de passe pour <?php  echo $_GET['id']; ?></h1>
+	<h1>Changement de mot de passe pour <?php  echo $_SESSION['Modify']; ?></h1>
 	<tr>
 		<td>
 		<label for="psw"><b>Nouveau mot de passe: </b></label>
@@ -131,29 +131,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
  if(strcmp($motdepasse, $confirmation) != 0)
  {
 	 $_SESSION['errNewPwd'] = "Les mots de passes ne correspondent pas";
-		header("Refresh:0; url=Profil.php?reussi=0");
+		header("location: modifier.php?reussi=0");
  }
  else {
 	 try {
 		 $stm = $Mybd->prepare("CALL ChangePassword(?,?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-		 $user = $_GET['id'];
-  	 $stm->bindParam(1, $User);
+		 $user = $_SESSION['Modify'];
+  	 $stm->bindParam(1, $user);
   	 $stm->bindParam(2, $motdepasse);
   	 $total = $stm->execute();
 		 if($total == 1)
 		 {
-			 header("Refresh:0; url=Profil.php?reussi=1");
+			 header("location: modifier.php?reussi=1");
 		 }
 	 } catch (\Exception $e) {
 	 	$_SESSION['errNewPwd'] = $e->getMessage();
-		header("Refresh:0; url=Profil.php?reussi=0");
+		header("location: modifier.php?reussi=0");
 	 }
 }
 }
 ?>
-
-
- ?>
 </div>
 
 </body>

@@ -20,7 +20,7 @@ session_start();
 if (isset($_SESSION['username']) || isset($_COOKIE["User"]))
 {
 	$connecter=true;
-	
+
 }
 else {
 	$connecter=false;
@@ -66,9 +66,10 @@ $Prenom = $donnees[1];
 		if(isset($_GET['logout']))
 		{
 			setcookie("User", null , -1);
-			session_start();
 	    session_unset();
-	    header("Location: login.php");
+			$logout = true;
+			header("refresh:0");
+			$_SESSION['logout'] = 1;
 		}
 		echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
 	}

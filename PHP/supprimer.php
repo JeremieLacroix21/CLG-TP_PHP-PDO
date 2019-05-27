@@ -16,6 +16,3 @@ $UserToDelete = $_SESSION['Delete'];
 	echo "$UserToDelete a été supprimer <a href='admin.php'>retour</a>";
 
 	?>
-
-}
-</script>

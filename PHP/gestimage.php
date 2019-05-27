@@ -17,7 +17,7 @@ $idPhoto = intval($_GET['id']);
 try
 {
 	$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
-	$stm = $Mybd->prepare("CALL GetUsername(?)" );
+	$stm = $Mybd->prepare("Select GetUsername(?)" );
 	$stm->bindParam(1, $id);
 	$id = $idPhoto;
 	$stm->execute();

@@ -49,8 +49,9 @@ session_start();
 	?>
 
 <!DOCTYPE html>
-
+<html>
 <head>
+<title>Galerie d'image/Login</title>
   <link rel="stylesheet" type="text/css" href="CSS.login.css">
 </head>
 
@@ -69,3 +70,10 @@ session_start();
 	<?php	echo ($Erreur); ?>
 </div>
 </body>
+
+<footer>
+<p style="text-align:center;">
+site faite par Charles Bourgeois, Jérémie Lacroix, et Mathieu Sévignye -- 2019 -- TP FINALE PDO 
+</p>
+</footer>
+</html>

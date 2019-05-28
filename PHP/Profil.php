@@ -10,8 +10,9 @@ session_start();
 					die();
 			}
 ?>
-
+<html>
 <header>
+<title>Galerie d'image/Profil</title>
 <link rel="stylesheet" href="CSS.Profil.css">
 <header/>
 
@@ -280,3 +281,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buttonMDP']))
 </div>
 
 </body>
+<footer>
+<p style="text-align:center;">
+site faite par Charles Bourgeois, Jérémie Lacroix, et Mathieu Sévignye -- 2019 -- TP FINALE PDO 
+</p>
+</footer>
+</html>

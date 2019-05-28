@@ -10,7 +10,7 @@ $idPhoto = intval($_GET['id']);
 <html>
 
 <header>
-
+<title>Galerie d'image/Image</title>
 </header>
 <?php
 

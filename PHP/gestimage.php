@@ -165,7 +165,7 @@ $Mybd=null;
 					$stm1->execute();
 					while ($donnees1 = $stm1->fetch())
 					{
-						echo $donnees1[3]."  ".$donnees1[0].': '.$donnees1[1].'      ';
+						 echo $donnees1[3]."  ".$donnees1[0].': '.$donnees1[1].'      ';
 
 						if($donnees1[0] == $Username || $Username == 'Admin')
 						{
@@ -206,11 +206,13 @@ site faite par Charles Bourgeois, Jérémie Lacroix, et Mathieu Sévignye -- 201
 
 			if($_POST['Commentaire'] != ""){
 			$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
-			$stm = $Mybd->prepare("CALL InsertionCommentaire(?,?,?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+			$stm = $Mybd->prepare("CALL InsertionCommentaire(?,?,?,?)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
 			$Comment = $_POST['Commentaire'];
 			$stm->bindParam(1, $idPhoto);
 			$stm->bindParam(2, $Username);
 			$stm->bindParam(3, $Comment);
+			$stm->bindParam(4, $Date);
+			$Date =date('Y-m-d H:i:s');
 			$stm->execute();
 			$donnees = $stm->fetch();
 			header("location:gestimage.php?id=$idPhoto");

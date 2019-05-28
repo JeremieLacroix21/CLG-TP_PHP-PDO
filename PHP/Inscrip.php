@@ -14,11 +14,14 @@ try {
     die();
 }
 ?>
-
+<html>
 <head>
+<title>Galerie d'image/sing up</title>
+
+
   <link rel="stylesheet" type="text/css" href="CSS.Inscription.css">
 </head>
-
+<body>
   <div class="container">
     <h1>Inscription</h1>
     <hr>
@@ -193,3 +196,11 @@ try {
   }
  ?>
 </form>
+</body>
+<footer>
+<p style="text-align:center;">
+site faite par Charles Bourgeois, Jérémie Lacroix, et Mathieu Sévignye -- 2019 -- TP FINALE PDO 
+</p>
+</footer>
+
+</html>

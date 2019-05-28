@@ -18,7 +18,9 @@ session_start();
 
 
 <!DOCTYPE html>
+<html>
 <header>
+<title>Galerie d'image/Ajout de photo</title>
 <link rel="stylesheet" type="text/css" href="CSS.Ajouter_photo.css">
 </header>
 <?php
@@ -126,3 +128,9 @@ echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
 </div>
 
 </body>
+<footer>
+<p style="text-align:center;">
+site faite par Charles Bourgeois, Jérémie Lacroix, et Mathieu Sévignye -- 2019 -- TP FINALE PDO 
+</p>
+</footer>
+</html>

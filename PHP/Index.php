@@ -11,8 +11,9 @@ session_start();
 					die();
 			}
 ?>
-
+<html>
 <header>
+<title>Galerie d'image</title>
 <link rel="stylesheet" href="CSS.Photo.css">
 <header/>
 
@@ -127,3 +128,12 @@ $Prenom = $donnees[1];
 
 
 </body>
+
+
+<footer>
+<p style="text-align:center;">
+site faite par Charles Bourgeois, Jérémie Lacroix, et Mathieu Sévignye -- 2019 -- TP FINALE PDO 
+</p>
+</footer>
+
+</html>

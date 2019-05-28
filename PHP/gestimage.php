@@ -26,11 +26,11 @@ try
 	$UsernameOwner = $donnees[0];
 	}
 	$stm->closeCursor();
-	
-	
-	
-	
-	
+
+
+
+
+
 
 
 }
@@ -89,16 +89,16 @@ $Prenom = $donnees[1];
 		if(isset($_GET['logout']))
 		{
 			setcookie("User", null , -1);
-		
 	    session_unset();
 		header("location:index.php");
 			$_SESSION['logout'] = "set";
-	    
+
 		}
 		echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
 	}
 	else
 	{
+		echo "<a style='float:right;' href='Inscrip.php?inscrit=0'> Sign up</a>";
 		echo "<a style='float:right;' href='login.php'> Login </a>";
 	}
   ?>
@@ -191,7 +191,7 @@ $Mybd=null;
 
 <footer>
 <p style="text-align:center;">
-site faite par Charles Bourgeois, Jérémie Lacroix, et Mathieu Sévignye -- 2019 -- TP FINALE PDO 
+site faite par Charles Bourgeois, Jérémie Lacroix, et Mathieu Sévignye -- 2019 -- TP FINALE PDO
 </p>
 </footer>
 
@@ -240,7 +240,7 @@ function Deletephoto($Q,$W){
 
 
 function Deletefromfiles($idp)
-{	
+{
 	$Mybd = new PDO('mysql:host=167.114.152.54;dbname=dbequipe24;charset=utf8','equipe24','2hv6ai74',array(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
 	$stm2 = $Mybd->prepare("CALL GetUrlImage(?)");
 	$stm2->bindParam(1, $id);
@@ -269,16 +269,11 @@ if (isset($_POST["zero"]))
 
 if (isset($_POST["PhotoDelete"]))
 {
-	
+
 	Deletefromfiles(intval($_GET['id']));
 	Deletephoto(intval($_GET['id']),$Username);
 	header("Location:index.php");
 }
 
-	
+
 ?>
-
-
-
-
-

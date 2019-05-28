@@ -75,6 +75,7 @@ $Prenom = $donnees[1];
 	}
 	else
 	{
+		echo "<a style='float:right;' href='Inscrip.php?inscrit=0'> Sign up</a>";
 		echo "<a style='float:right;' href='login.php'> Login </a>";
 	}
   ?>

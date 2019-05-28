@@ -1,0 +1,384 @@
+Procédure :
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `AfficherConnexion`()
+BEGIN
+SELECT Pseudonyme,IP,Date FROM Membres WHERE IP IS NOT NULL ORDER BY Date DESC;
+END$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `ChangeEmail`(IN `Ppseudo` VARCHAR(45), IN `Pnewemail` VARCHAR(45))
+    NO SQL
+Begin
+update Membres set Email = Pnewemail where pseudonyme = Ppseudo;
+commit;
+end$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `ChangePassword`(IN Ppseudo varchar(45), IN PNewpsswd varchar(45))
+Begin
+update Membres set MotDePasse = PNewpsswd where pseudonyme = Ppseudo;
+commit;
+end$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `DeleteCommentaires`(IN `id` INT(11))
+BEGIN
+DELETE from Commentaires where idCommentaires = id;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `DeleteCompte`(IN Ppseudo varchar(45))
+Begin
+delete from Membres where Pseudonyme = Ppseudo;
+commit;
+end$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `GetImages`()
+    NO SQL
+Begin
+	select * from Images order by idImages DESC;
+end$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `GetUrlImage`(IN `id` INT(11))
+BEGIN
+SELECT Url from Images where idImages = id;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `Getcomment`(IN `pid` INT)
+    NO SQL
+BEGIN
+select Pseudonyme,Message,idCommentaires,Date from Commentaires where
+IdImages = pid;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `Getusers`()
+    NO SQL
+    DETERMINISTIC
+BEGIN
+SELECT pseudonyme,nom,prenom FROM Membres where nom IS NOT NULL;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `InsertionConnection`(IN `pUser` VARCHAR(45), IN `pIp` VARCHAR(45), IN `pdate` DATE)
+BEGIN
+UPDATE Membres set IP = pIp where Pseudonyme = pUser;
+UPDATE Membres set Date = pdate where Pseudonyme = pUser;
+END$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `ModifierProfil`(IN Ppseudo varchar(45), IN Pemail varchar(45), IN Pmdp varchar(45))
+Begin
+update Membres set MotDePasse = Pmdp, Email = Pemail where pseudonyme = Ppseudo;
+commit;
+end$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `NombreCommentaire`(IN `Pid` INT(11))
+    NO SQL
+Begin
+	select count(*) from Commentaires C inner join Images I
+    on C.IdImages=I.idImages where I.idImages = Pid;
+end$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `SelectNom`(IN Ppseudo varchar(45))
+Begin
+select pseudonyme from Membres where pseudonyme = Ppseudo;
+end$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `SelectNomPrenom`(IN `Ppseudo` VARCHAR(45))
+    NO SQL
+Begin
+select Nom,Prenom from Membres where pseudonyme = Ppseudo;
+end$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `VerifierAdmin`(IN `Ppseudo` VARCHAR(45))
+    NO SQL
+BEGIN
+declare var int;
+declare rep char(1);
+select Admin into var from Membres where pseudonyme = ppseudo;
+if var=1 then set rep ='Y' ; else set rep = 'N'; end if;
+select rep;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `VerifierCompte`(IN `ppseudo` VARCHAR(45), IN `pmdp` VARCHAR(45))
+    NO SQL
+BEGIN
+declare var int;
+declare rep char(1);
+select exists(select Pseudonyme,MotDePasse from Membres where pseudonyme = ppseudo and pmdp = Motdepasse) into var;
+if var=1 then set rep ='Y' ; else set rep = 'N'; end if;
+select rep;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `VerifierEmail`(IN `Pemail` VARCHAR(45))
+    NO SQL
+BEGIN
+declare var int;
+declare rep char(1);
+select exists(select Email from Membres where Email = Pemail) into var;
+if var=1 then set rep ='Y' ; else set rep = 'N'; end if;
+select rep;
+END$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `VerifierUser`(IN `pseudo` VARCHAR(45))
+    NO SQL
+BEGIN
+declare var int;
+declare rep char(1);
+select exists(select pseudonyme from Membres where pseudonyme = pseudo) into var;
+if var=1 then set rep ='Y' ; else set rep = 'N'; end if;
+select rep;
+END$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` PROCEDURE `InsertionCommentaire`(IN `PidImages` INT(11), IN `PPseudonyme` VARCHAR(45) CHARSET utf8, IN `PMessage` VARCHAR(45) CHARSET utf8, IN `pdate` DATE)
+BEGIN
+INSERT INTO `Commentaires` (`idCommentaires`, `IdImages`, `Pseudonyme`, `Message`,`Date`) VALUES (NULL, PidImages, PPseudonyme, PMessage,pdate);
+end$$
+DELIMITER ;
+
+
+
+
+Fonction :: 
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` FUNCTION `DeleteCommentaire`(`Pseudo` VARCHAR(45), `Pidcommentaire` INT) RETURNS varchar(45) CHARSET utf8mb4
+Begin
+	declare pseudocomment varchar(45);
+	select C.pseudonyme into pseudocomment from Commentaires C where Idcommentaires = Pidcommentaires ; 
+	if pseudocomment = Ppseudo then
+	delete from Commentaires where Idcommentaires = Pidcommentaires;
+	else set pseudocomment = 'Erreur';
+	end if;
+	return pseudocomment;
+end$$
+DELIMITER ;
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` FUNCTION `DeleteCommentaireImage`(`Pseudo` VARCHAR(45), `Pidcommentaires` INT) RETURNS varchar(45) CHARSET utf8mb4
+Begin
+declare ImageOwner varchar(45);
+select I.pseudonyme into ImageOwner from Images I inner join Commentaires C
+on I.Idimages = C.Idimages where C.Idcommentaires = Pidcommentaires; 
+if ImageOwner = Ppseudo then
+delete from Commentaires where Idcommentaires = Pidcommentaires;
+else set ImageOwner = 'Erreur';
+end if;
+return ImageOwner;
+end$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE DEFINER=`equipe24`@`%` FUNCTION `DeleteImage`(`Ppseudo` VARCHAR(45), `Pidimages` INT(11)) RETURNS varchar(45) CHARSET utf8mb4
+    NO SQL
+Begin
+declare pseudoimage varchar(45);
+select I.pseudonyme into pseudoimage from Images I where Idimages = Pidimages; 
+if pseudoimage = Ppseudo or Ppseudo = 'Admin' then
+delete from Images where Idimages = Pidimages;
+else set pseudoimage = 'Erreur';
+end if;
+return pseudoimage;
+end$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

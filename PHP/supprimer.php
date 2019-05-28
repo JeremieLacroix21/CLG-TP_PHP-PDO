@@ -10,7 +10,7 @@ $UserToDelete = $_SESSION['Delete'];
 			$stm0->bindparam(1,$UserToDelete);
 			$result = $stm0->execute();
 
-			header("url=Admin.php");
+			header("url=admin.php");
 		} catch (PDOException $e)
 				{ echo('Erreur de connexion: ' . $e->getMessage());exit();}
 	echo "$UserToDelete a été supprimer <a href='admin.php'>retour</a>";

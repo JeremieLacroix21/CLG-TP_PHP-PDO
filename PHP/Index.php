@@ -58,10 +58,10 @@ $Prenom = $donnees[1];
   <a href="index.php">Galerie Photo</a>
 	<?php
 	if($admin == 1){
-		echo ("<a href='Admin.php'>Admin</a>");
+		echo ("<a href='admin.php'>Admin</a>");
 	}
 	if($connecter==true){
-		echo "<a href='Ajouter_Photo.php'>Ajouter une photo</a>";
+		echo "<a href='ajouter_Photo.php'>Ajouter une photo</a>";
 		echo "logout";
 		echo "<a style='float:right;' href='?logout=true'> logout</a>";
 		if(isset($_GET['logout']))
@@ -72,11 +72,11 @@ $Prenom = $donnees[1];
 			header("refresh:0");
 			$_SESSION['logout'] = "set";
 		}
-		echo "<a style='float:right;' href='Profil.php?reussi=0'> $Prenom $Nom  </a>";
+		echo "<a style='float:right;' href='profil.php?reussi=0'> $Prenom $Nom  </a>";
 	}
 	else
 	{
-		echo "<a style='float:right;' href='Inscrip.php?inscrit=0'> Sign up</a>";
+		echo "<a style='float:right;' href='inscrip.php?inscrit=0'> Sign up</a>";
 		echo "<a style='float:right;' href='login.php'> Login </a>";
 	}
   ?>
